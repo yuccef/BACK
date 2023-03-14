@@ -1,6 +1,6 @@
 const fs = require("fs"); 
 const color = require("chalk");
-let user = fs.readFileSync("users.json"); //importer le fichier "users.json"
+let user = fs.readFileSync("data/customers.json"); //importer le fichier "users.json"
 const tab = JSON.parse(user);  //recupérer le tableau du fichier importé
 const prompt = require("prompt-sync")();    //inclusion  de prompt
 
