@@ -1,40 +1,20 @@
-var express = require("express");
-const business = require("../business/business");
-var app = express();
+const express = require("express");
+const business = require("../Business/business");
+const app = express();
 
-const apiPres = {
+const apiServ = {
 
-    start:function(port){
+    start : function(port) {
+        app.listen(port, function(){ console.log("Serveur lancé sur le port " +port); });
 
-        app.use(express.json());
+        app.use(express.static("Public"));
 
-        app.use(function(req, res, next) {  
-            res.header("Access-Control-Allow-Origin", "*");
-            res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-            next();
-        });
-
-        app.get("/test", function(req, res){
-            const testObj ={
-                test: "test"
-            };
-            res.json(testObj);
-        });
-
-        app.get("/api/customers", function(req, res) {
-            const number = req.query.number;
-            const page = req.query.page;
-
-            const customers = business.getCustomers(number, page);
-
+        app.get("/api/customers",function(req,res){
+            const customers = business.getAllCustomers();
             res.json(customers);
         });
-
-        app.listen(port, function(){
-            console.log("Server running on port " + port);
-    });
     }
-}
+};
 
 
-module.exports = apiPres;
+module.exports = apiServ;
