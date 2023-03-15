@@ -25,7 +25,7 @@
 
 
 $.ajax({
-    url:"http://localhost/3001/api/customers",
+    url:"http://localhost:3001/api/customers",
     method : "GET",
     dataType : "json",
     data:{
