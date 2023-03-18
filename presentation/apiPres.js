@@ -40,19 +40,17 @@ const apiServ = {
             const page = req.query.page;
 
             // get customers from business layer
-            // const customers = business.getAllCustomers();
             const resCustomers = business.getAllCustomers(number, page);
 
-            // res.json(customers);
             res.json(resCustomers);
         });
         
-           //Creating a route where we can find liste.html
+           //Creating a NEW route where we can find liste.html
             app.get('/api/customers/liste', function(req, res) {
             res.sendFile(path.join(__dirname, '/../public/list.html'));
             });
 
-
+        //run
         app.listen(port, function(){
             console.log("Server running on port " + port);
         });
@@ -60,6 +58,10 @@ const apiServ = {
 }
 
 module.exports = apiServ;
+
+
+
+
 
 
 // const apiServ = {
