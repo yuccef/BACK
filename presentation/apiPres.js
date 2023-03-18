@@ -3,19 +3,16 @@ const business = require("../Business/business");
 const app = express();
 const cors = require('cors');
 
-// const apiServ = {
 
-//     start : function(port) {
-//         app.listen(port, function(){ console.log("Serveur lancé sur le port " +port); });
+const path = require('path');
+app.use(express.static(path.join(__dirname, '/../public')));
 
-//         app.use(express.static("Public"));
 
-//         app.get("/api/customers",function(req,res){
-//             const customers = business.getAllCustomers();
-//             res.json(customers);
-//         });
-//     }
-// };
+
+
+//For the Data server use http://localhost:3001/api/customers
+//For the Liste in internet server use http://localhost:3001/api/customers/liste
+
 
 
 
@@ -49,6 +46,12 @@ const apiServ = {
             // res.json(customers);
             res.json(resCustomers);
         });
+        
+           //Creating a route where we can find liste.html
+            app.get('/api/customers/liste', function(req, res) {
+            res.sendFile(path.join(__dirname, '/../public/list.html'));
+            });
+
 
         app.listen(port, function(){
             console.log("Server running on port " + port);
@@ -57,3 +60,18 @@ const apiServ = {
 }
 
 module.exports = apiServ;
+
+
+// const apiServ = {
+
+//     start : function(port) {
+//         app.listen(port, function(){ console.log("Serveur lancé sur le port " +port); });
+
+//         app.use(express.static("Public"));
+
+//         app.get("/api/customers",function(req,res){
+//             const customers = business.getAllCustomers();
+//             res.json(customers);
+//         });
+//     }
+// };

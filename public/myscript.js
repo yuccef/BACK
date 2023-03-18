@@ -1,3 +1,4 @@
+
 $(document).ready(function() {
 			$.getJSON("http://localhost:3001/api/customers", function(data) {
 				$.each(data, function(key, customer) {

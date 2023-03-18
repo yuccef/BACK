@@ -25,7 +25,7 @@ const business = {
             number - maxNumber;
         }
 
-        //get data from DAL
+        //get data from dataL
         const resCustomers = dataL.getUsers(number,page);
 
         resCustomers.page = page;
