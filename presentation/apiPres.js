@@ -12,6 +12,7 @@ app.use(express.static(path.join(__dirname, '/../public')));
 
 //For the Data server use http://localhost:3001/api/customers
 //For the Liste in internet server use http://localhost:3001/api/customers/liste
+//Add a user use http://localhost:3001/api/customers/liste/add
 
 
 
@@ -52,7 +53,7 @@ const apiServ = {
 
              //Creating a NEW route where we can  Ajouter personne
              app.get('/api/customers/liste/add', function(req, res) {
-                res.sendFile(path.join(__dirname, '/../Addclient/testt.html'));
+                res.sendFile(path.join(__dirname, '/../Addclient/add.html'));
                 });
 
         //run
