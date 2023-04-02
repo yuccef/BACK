@@ -50,6 +50,11 @@ const apiServ = {
             res.sendFile(path.join(__dirname, '/../public/list.html'));
             });
 
+             //Creating a NEW route where we can  Ajouter personne
+             app.get('/api/customers/liste/add', function(req, res) {
+                res.sendFile(path.join(__dirname, '/../Addclient/testt.html'));
+                });
+
         //run
         app.listen(port, function(){
             console.log("Server running on port " + port);

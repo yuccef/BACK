@@ -123,8 +123,8 @@ td:hover::before {
 	<!--Table-->
 	<table id="customersTable">
 		<thead>
-			<tr>
-		<button onclick="afficher()">Ajouter</button>
+		    <tr>
+		<a href=" http://localhost:3001/api/customers/liste/add"><button>Ajouter</button></a>	
 		<h5 class="front-medium nb-0">	<th>id</th></h5>
         <h5 class="front-medium nb-0"><th>Email</th></h5>
 		<h5 class="front-medium nb-0"><th>first</th></h5>
@@ -153,6 +153,8 @@ td:hover::before {
 					tr.append("<td>" + customer.company + "</td>");
 					tr.append("<td>" + customer.created_at + "</td>");
           tr.append("<td>" + customer.counrty + "</td>");
+		            tr.append("<td>" + customer.counrty + "</td>");
+
 					$("#customersTable tbody").append(tr);
 				});
 			});
