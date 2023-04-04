@@ -2,7 +2,22 @@ const fs = require("fs");
 
 const fichier = "./data/customers.json";
 
+
+
 let dataLayer = {
+
+    addUser: function (data){
+        const users = fs.readFileSync(fichier);
+        const tab= JSON.parse(users);
+        tab.push(data);
+        var newdata = JSON.stringify(tab);
+        fs.writeFile("./data/customers.json", newdata, err => {
+            // error checking
+            if(err) throw err;
+            
+            console.log("Utilisateur ajouté");
+        });
+    },
 
     getAllUsers : function (){
         const users = fs.readFileSync(fichier);

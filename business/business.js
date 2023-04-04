@@ -1,4 +1,4 @@
-const dataL = require("../data/datalayer");
+const dataL = require("./data/datalayer");
 
 
 const defaultNumber=10;
@@ -7,7 +7,16 @@ const maxNumber =100;
 
 
 const business = {
-    
+
+
+    AddUser :function(data)  {
+        console.log("AddUser");
+        console.log(data);
+         return dataL.addUser(data);
+    },
+
+
+
     getAllCustomers : function () {
         return dataL.getAllUsers();
     },

@@ -1,5 +1,5 @@
 const express = require("express");
-const business = require("../Business/business");
+const business = require("../business/business");
 const app = express();
 const cors = require('cors');
 
@@ -45,6 +45,16 @@ const apiServ = {
 
             res.json(resCustomers);
         });
+
+        //Creating a NEW route where we can find liste.html//
+        app.post('/api/customers/add', function(req, res) {
+            console.log(req.body);
+            const resCustomers = business.AddUser(req.body);
+            res.json(req.body);
+
+            //res.send(req.body); 
+            });
+
         
            //Creating a NEW route where we can find liste.html
             app.get('/api/customers/liste', function(req, res) {
