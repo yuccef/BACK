@@ -174,7 +174,6 @@ outline: 0;
         <input class="contact-form__input contact-form__input--text" id="created_at" name="created_at" type="date"/>
       </div>
       
-      <input name="secret" type="hidden" value="1b3a9374-1a8e-434e-90ab-21aa7b9b80e7"/>
       <button class="contact-form__button" type="submit">Confirmer</button>
      
     </form>
@@ -183,23 +182,10 @@ outline: 0;
     <h2 class="results__heading">Form Data</h2>
     <pre class="results__display-wrapper"><code class="results__display"></code></pre>
   </div>
-<script type="module">
 
-  const isValidElement = element => {
-  return element.name && element.value;
-  };
-  
+ </body>
+ <script >
 
-  const isValidValue = element => {
-  return !['checkbox', 'radio'].includes(element.type) || element.checked;
-  };
-  
- 
-  const isCheckbox = element => element.type === 'checkbox';
-  
-  
-  const isMultiSelect = element => element.options && element.multiple;
-  
   
   const getSelectValues = options => [].reduce.call(options, (values, option) => {
   return option.selected ? values.concat(option.value) : values;
@@ -222,10 +208,7 @@ outline: 0;
   
   // This is used as the initial value of `data` in `reducerFunction()`.
   const reducerInitialValue = {};
-  
-  // To help visualize what happens, log the inital value, which we know is `{}`.
-  console.log('Initial `data` value:', JSON.stringify(reducerInitialValue));
-  
+    
   // Now we reduce by `call`-ing `Array.prototype.reduce()` on `elements`.
   const formData = [].reduce.call(elements, reducerFunction, reducerInitialValue);
   
@@ -237,17 +220,11 @@ outline: 0;
   const formToJSON = elements => [].reduce.call(elements, (data, element) => {
   
   // Make sure the element has the required properties and should be added.
-  if (isValidElement(element) && isValidValue(element)) {
   
   
-  if (isCheckbox(element)) {
   data[element.name] = (data[element.name] || []).concat(element.value);
-  } else if (isMultiSelect(element)) {
   data[element.name] = getSelectValues(element);
-  } else {
   data[element.name] = element.value;
-  }
-  }
   
   return data;
   }, {});
@@ -279,8 +256,6 @@ outline: 0;
 
   
   </script>
- </body>
-
 </html>
 
   
