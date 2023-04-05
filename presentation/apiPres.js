@@ -2,8 +2,6 @@ const express = require("express");
 const business = require("../business/business");
 const app = express();
 const cors = require('cors');
-
-
 const path = require('path');
 app.use(express.static(path.join(__dirname, '/../public')));
 
@@ -12,8 +10,8 @@ app.use(express.static(path.join(__dirname, '/../public')));
 
 //For the Data server use http://localhost:3001/api/customers
 //For the Liste in internet server use http://localhost:3001/api/customers/liste
-//Add a user use http://localhost:3001/api/customers/liste/add
-
+//Add a user use (FRONT) http://localhost:3001/api/customers/liste/add
+//Add a user use (BACK) http://localhost:3001/api/customers/add
 
 
 
@@ -26,15 +24,6 @@ const apiServ = {
             origin: '*'
         }));
 
-        app.get("/test", function(req, res){
-            const testObj = {
-                test: "test"
-            };
-
-            console.log("call done");
-            res.json(testObj);
-        });
-
         app.get("/api/customers", function(req, res){
 
             const number = req.query.number;
@@ -42,17 +31,15 @@ const apiServ = {
 
             // get customers from business layer
             const resCustomers = business.getAllCustomers(number, page);
-
             res.json(resCustomers);
         });
 
-        //Creating a NEW route where we can find liste.html//
+
+        /**Creating a NEW route where we can push the data of the new user*/
         app.post('/api/customers/add', function(req, res) {
             console.log(req.body);
             const resCustomers = business.AddUser(req.body);
             res.json(req.body);
-
-            //res.send(req.body); 
             });
 
         
@@ -60,6 +47,7 @@ const apiServ = {
             app.get('/api/customers/liste', function(req, res) {
             res.sendFile(path.join(__dirname, '/../public/list.html'));
             });
+
 
              //Creating a NEW route where we can  Ajouter personne
              app.get('/api/customers/liste/add', function(req, res) {

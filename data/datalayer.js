@@ -1,13 +1,16 @@
 const fs = require("fs");
-
-const fichier = "./data/customers.json";
-
+const fichier = "./data/customers.json"; 
 
 
+
+/**dataLayer is a class that contains several methods for database manipulation */
 let dataLayer = {
 
+
+
+/**method to add new user in the data base  */
     addUser: function (data){
-        const users = fs.readFileSync(fichier);
+        const users = fs.readFileSync(fichier); 
         const tab= JSON.parse(users);
         tab.push(data);
         var newdata = JSON.stringify(tab);
@@ -19,6 +22,11 @@ let dataLayer = {
         });
     },
 
+
+
+/**FOR PAGINATION  */
+
+    /**method to return all Users */
     getAllUsers : function (){
         const users = fs.readFileSync(fichier);
         const tableau = JSON.parse(users);
@@ -26,15 +34,12 @@ let dataLayer = {
     },
 
 
+    /**method to return a specific part of Users */
     getUsers : function (number, page) {
         {
 
-         //read json file
-         let test =fs.readFileSync(fichier);
-
-         //parse to object 
-         let tableau = JSON.parse(test);
-
+         let test =fs.readFileSync(fichier);          //read json file
+         let tableau = JSON.parse(test);         //parse to object 
          const total = tableau.length;
 
          //filter by number and page
@@ -57,6 +62,5 @@ let dataLayer = {
 
 };
 
-
-
+/**export the class */
 module.exports =dataLayer;
