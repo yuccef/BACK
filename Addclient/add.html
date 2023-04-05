@@ -252,10 +252,41 @@ outline: 0;
   const form = document.getElementsByClassName('contact-form')[0];
   form.addEventListener('submit', handleFormSubmit);
 
+  
+        const express = require('express');
+const bodyParser = require('body-parser');
+const business = require("../business/business");
+
+const app = express();
+app.use(bodyParser.json());
+
+const ADDFRONT ={
+
+AddUserFront :function (req)  {
+
+  const userData = {
+    id : req.body.id,
+    email: req.body.email,
+    first: req.body.first,
+    last: req.body.last,
+    company: req.body.company,
+    country: req.body.country,
+    created_at: new Date().toISOString().slice(0, 10)
+  };
+
+
+ console.log("test");
+ console.log(userData);
+}}
+
+
+
+module.exports = ADDFRONT   ;
+window.AddUserFront = AddUserFront;
+    </script>
 
 
   
-  </script>
 </html>
 
   

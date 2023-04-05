@@ -1,5 +1,6 @@
 const express = require("express");
 const business = require("../business/business");
+const Add = require("../Addclient/addd");
 const app = express();
 const cors = require('cors');
 const path = require('path');
@@ -51,7 +52,15 @@ const apiServ = {
 
              //Creating a NEW route where we can  Ajouter personne
              app.get('/api/customers/liste/add', function(req, res) {
-                res.sendFile(path.join(__dirname, '/../Addclient/add.html'));
+                res.sendFile(path.join(__dirname, '/../Addclient/addd.html'));
+                const result = Add.AddUserFront(req);
+                app.post('/api/customers/add', function(result, res) {
+                    console.log(result);
+                    const resCustomers = business.AddUser(result);
+                    res.json(resCustomers);
+
+                    });
+
                 });
 
         //run
