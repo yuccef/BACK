@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Customers Table</title>
+	<meta charset="UTF-8">
+<script src="test.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Appliquer un style de base à la page */
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    background-color: #fff;
+  }
+  
+  /* Centrer le tableau et définir les couleurs des lignes */
+  #catTable {
+    margin: 50px auto;
+    border-collapse: collapse;
+    background-color: #7987cf;
+  }
+  
+  #catTable th {
+    background-color: #9eb7d3;
+    color: #fff;
+    text-align: left;
+  }
+  
+  #catTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  #catTable tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  /* Définir les styles des boutons */
+  button {
+    background-color: #b36161;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+  }
+  a {
+    background-color: #b36161;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+  }
+  
+  button:hover {
+    background-color: #6ca1d3;
+  }
+  
+  /* Appliquer le style Bootstrap au tableau */
+  @media (min-width: 576px) {
+    #catTable {
+      width: 100%;
+      max-width: 540px;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    #catTable {
+      width: 100%;
+      max-width: 720px;
+    }
+  }
+  
+  @media (min-width: 992px) {
+    #catTable {
+      width: 100%;
+      max-width: 960px;
+    }
+  }
+  
+  @media (min-width: 1200px) {
+    #catTable {
+      width: 100%;
+      max-width: 1140px;
+    }
+  }
+  
+    </style>
+    <link rel="stylesheet" href="test.css" >
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+  <a id="AddButton" href=" http://localhost:3001/api/customers/liste/add"><button>Ajouter</button></a>	
+
+    <table id="catTable">
+        <thead>
+          <tr>
+          
+            <th data-sort="id">ID</th>
+            <th data-sort="email">email</th>
+            <th data-sort="first">First</th>
+            <th data-sort="last">Last</th>
+            <th data-sort="company">Company</th>
+            <th data-sort="created_at">Created_at</th>
+            <th data-sort="country">Country</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td colspan="4"><i>Loading...</i></td></tr>
+        </tbody>
+      </table>
+      
+      <button id="prevButton">Previous</button> 
+      <button id="nextButton">Next</button>
+
+      <script>
+        document.addEventListener('DOMContentLoaded', init, false);
+
+let data, table, sortCol;
+let sortAsc = false;
+const pageSize = 30;
+let curPage = 1;
+
+async function init() {
+  
+  // Select the table (well, tbody)
+  table = document.querySelector('#catTable tbody');
+  // get the cats
+  let resp = await fetch('http://localhost:3001/api/customers');
+  data = await resp.json();
+  renderTable();
+  
+  // listen for sort clicks
+  document.querySelectorAll('#catTable thead tr th').forEach(t => {
+     t.addEventListener('click', sort, false);
+  });
+  
+  document.querySelector('#nextButton').addEventListener('click', nextPage, false);
+  document.querySelector('#prevButton').addEventListener('click', previousPage, false);
+}
+
+function renderTable() {
+  // create html
+  let result = '';
+  data.filter((row, index) => {
+        let start = (curPage-1)*pageSize;
+        let end =curPage*pageSize;
+        if(index >= start && index < end) return true;
+  }).forEach(c => {
+     result += `<tr>
+     <td>${c.id}</td>
+     <td>${c.email}</td>
+     <td>${c.first}</td>
+     <td>${c.last}</td>
+     <td>${c.company}</td>
+     <td>${c.created_at}</td>
+     <td>${c.country}</td>
+     </tr>`;
+  });
+  table.innerHTML = result;
+}
+
+function sort(e) {
+  let thisSort = e.target.dataset.sort;
+  if(sortCol === thisSort) sortAsc = !sortAsc;
+  sortCol = thisSort;
+  console.log('sort dir is ', sortAsc);
+  data.sort((a, b) => {
+    if(a[sortCol] < b[sortCol]) return sortAsc?1:-1;
+    if(a[sortCol] > b[sortCol]) return sortAsc?-1:1;
+    return 0;
+  });
+  renderTable();
+}
+
+function previousPage() {
+  if(curPage > 1) curPage--;
+  renderTable();
+}
+
+function nextPage() {
+  if((curPage * pageSize) < data.length) curPage++;
+  renderTable();
+}
+      </script>
+</body>
+</html>
