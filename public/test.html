@@ -115,9 +115,12 @@ html, body {
           <tr><td colspan="4"><i>Loading...</i></td></tr>
         </tbody>
       </table>
-      
+
+      <button id="firstButton">First</button> 
       <button id="prevButton">Previous</button> 
       <button id="nextButton">Next</button>
+      <button id="lastButton">Last</button> 
+
 
       <script>
         document.addEventListener('DOMContentLoaded', init, false);
@@ -140,9 +143,12 @@ async function init() {
   document.querySelectorAll('#catTable thead tr th').forEach(t => {
      t.addEventListener('click', sort, false);
   });
-  
+
+  document.querySelector('#firstButton').addEventListener('click', firstPage, false);
   document.querySelector('#nextButton').addEventListener('click', nextPage, false);
   document.querySelector('#prevButton').addEventListener('click', previousPage, false);
+  document.querySelector('#lastButton').addEventListener('click', lastPage, false);
+
 }
 
 function renderTable() {
@@ -184,8 +190,19 @@ function previousPage() {
   renderTable();
 }
 
+
 function nextPage() {
   if((curPage * pageSize) < data.length) curPage++;
+  renderTable();
+}
+
+function firstPage() {
+   curPage=1;
+  renderTable();
+}
+
+function lastPage() {
+  curPage= data.length/pageSize;
   renderTable();
 }
       </script>
