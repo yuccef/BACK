@@ -52,7 +52,7 @@ const apiServ = {
 
              //Creating a NEW route where we can  Ajouter personne
              app.get('/api/customers/liste/add', function(req, res) {
-                res.sendFile(path.join(__dirname, '/../Addclient/addd.html'));
+                res.sendFile(path.join(__dirname, '/../public/addd.html'));
                 const result = Add.AddUserFront(req);
                 app.post('/api/customers/add', function(result, res) {
                     console.log(result);
