@@ -1,6 +1,5 @@
 const express = require("express");
 const business = require("../business/business");
-const Add = require("../Addclient/addd");
 const app = express();
 const cors = require('cors');
 const path = require('path');
@@ -38,7 +37,6 @@ const apiServ = {
 
         /**Creating a NEW route where we can push the data of the new user*/
         app.post('/api/customers/add', function(req, res) {
-            console.log(req.body);
             const resCustomers = business.AddUser(req.body);
             res.json(req.body);
             });
@@ -53,15 +51,9 @@ const apiServ = {
              //Creating a NEW route where we can  Ajouter personne
              app.get('/api/customers/liste/add', function(req, res) {
                 res.sendFile(path.join(__dirname, '/../public/addd.html'));
-                const result = Add.AddUserFront(req);
-                app.post('/api/customers/add', function(result, res) {
-                    console.log(result);
-                    const resCustomers = business.AddUser(result);
-                    res.json(resCustomers);
-
                     });
 
-                });
+               
 
         //run
         app.listen(port, function(){
@@ -75,18 +67,3 @@ module.exports = apiServ;
 
 
 
-
-
-// const apiServ = {
-
-//     start : function(port) {
-//         app.listen(port, function(){ console.log("Serveur lancé sur le port " +port); });
-
-//         app.use(express.static("Public"));
-
-//         app.get("/api/customers",function(req,res){
-//             const customers = business.getAllCustomers();
-//             res.json(customers);
-//         });
-//     }
-// };
