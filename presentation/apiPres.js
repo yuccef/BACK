@@ -44,13 +44,13 @@ const apiServ = {
         
            //Creating a NEW route where we can find liste.html
             app.get('/api/customers/liste', function(req, res) {
-            res.sendFile(path.join(__dirname, '/../public/test.html'));
+            res.sendFile(path.join(__dirname, '/../public/list.html'));
             });
 
 
              //Creating a NEW route where we can  Ajouter personne
              app.get('/api/customers/liste/add', function(req, res) {
-                res.sendFile(path.join(__dirname, '/../public/addd.html'));
+                res.sendFile(path.join(__dirname, '/../public/add.html'));
                     });
 
                
