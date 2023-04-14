@@ -53,7 +53,14 @@ const apiServ = {
                 res.sendFile(path.join(__dirname, '/../public/add.html'));
                     });
 
-               
+                    //Creating a NEW route where we can  Ajouter personne
+                    app.get('/api/customers/liste/modify', function(req, res) {
+                        res.sendFile(path.join(__dirname, '/../public/modify.html'));
+                            });
+                                   //Creating a NEW route where we can  Ajouter personne
+                    app.get('/api/customers/liste/modify2', function(req, res) {
+                        res.sendFile(path.join(__dirname, '/../public/modify2.html'));
+                            });
 
         //run
         app.listen(port, function(){

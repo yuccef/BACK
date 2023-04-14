@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Modifier l'utilisateur</title>
+    <style>
+      body {
+  background-color: #f2f2f2;
+}
+
+h1 {
+  text-align: center;
+  font-size: 2rem;
+  color: #333;
+  margin-top: 2rem;
+}
+
+form {
+  max-width: 500px;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+}
+
+label {
+  display: block;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+input[type="email"],
+input[type="text"] {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 3px;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+input[type="submit"] {
+  display: block;
+  width: 100%;
+  background-color: #f44336;
+  color: #fff;
+  font-size: 1.2rem;
+  padding: 1rem;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+input[type="submit"]:hover {
+  background-color: #e53935;
+}
+
+input[type="submit"]:focus {
+  outline: none;
+}
+
+/* Animations */
+
+form {
+  animation: slideIn 0.5s forwards;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+    </style>
+  </head>
+  <body>
+    <h1>Modifier l'utilisateur</h1>
+    <form id="user-form">
+      <label for="email">Email :</label>
+      <input type="email" id="email" name="email" required /><br /><br />
+      <label for="first">Prénom :</label>
+      <input type="text" id="first" name="first" required /><br /><br />
+      <label for="last">Nom :</label>
+      <input type="text" id="last" name="last" required /><br /><br />
+      <label for="company">Entreprise :</label>
+      <input type="text" id="company" name="company" required /><br /><br />
+      <label for="country">Pays :</label>
+      <input type="text" id="country" name="country" required /><br /><br />
+      <input type="submit" value="Ajouter" />
+    </form>
+    <script>
+      
+    
+
+      const userForm = document.getElementById("user-form");
+
+      userForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const userData = {
+          id: idd,
+          email: userForm.email.value,
+          first: userForm.first.value,
+          last: userForm.last.value,
+          company: userForm.company.value,
+          country: userForm.country.value,
+          created_at: new Date().toISOString().slice(0, 10),
+        };
+
+        fetch("/api/customers/add", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userData),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Utilisateur ajouté :", data);
+          })
+          .catch((error) => {
+            console.error("Erreur lors de l'ajout de l'utilisateur :", error);
+          });
+      });
+    </script>
+
+  </body>
+</html>
