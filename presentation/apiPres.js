@@ -25,33 +25,41 @@ const apiServ = {
             origin: '*'
         }));
 
-        app.get("/api/customers", function(req, res){
-
-            const number = req.query.number;
-            const page = req.query.page;
-
-            // get customers from business layer
-            const resCustomers = business.getAllCustomers(number, page);
-            res.json(resCustomers);
-        });
-
-        customers.forEach(customer => {
-            const id = customer.id;
-            app.get(`/api/customers/${id}`, (req, res) => {
-              res.send(customer);
-            });
-            app.put(`/api/customers/${id}`, (req, res) => {
-                res.send('Update The client');
-              });
+        app.get('/api/customers', (req, res) => {
+            res.json(customers);
           });
+          
+          app.get('/api/customers/:id', (req, res) => {
+            const id = req.params.id;
+            const customer = customers.find(c => c.id === Number(id));
+            if (customer) {
+              res.json(customer);
+            } else {
+              res.status(404).json({ message: 'Customer not found' });
+            }
+          });
+          
+          app.put('/api/customers/:id', (req, res) => {
+            const id = req.params.id;
+            const customer = customers.find(c => c.id === Number(id));
+            if (customer) {
+              customer.first = req.body.first;
+              customer.last = req.body.last;
+              customer.email = req.body.email;
+              customer.company = req.body.company;
+              customer.country = req.body.country;
 
-         app.put('/api/customers/liste/modify2', function(req, res) {
-            res.json(req.body);
-            }); 
+              res.json(customer);
+            } else {
+              res.status(404).json({ message: 'Customer not found' });
+            }
+          });
+          
+
 
         /**Creating a NEW route where we can push the data of the new user*/
         app.post('/api/customers/add', function(req, res) {
-            const resCustomers = business.AddUser(req.body);
+            business.AddUser(req.body);
             res.json(req.body);
             });
 

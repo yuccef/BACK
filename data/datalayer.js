@@ -22,6 +22,21 @@ let dataLayer = {
         });
     },
 
+/**method to add new user in the data base  */
+modifyUser: function (data, userId , whatUpdate ,theUpdate ){
+    const users = fs.readFileSync(fichier); 
+    const tab= JSON.parse(users);
+    const user = tab.find(user => user.id === userId);
+    if (user) {
+        user[whatUpdate] = theUpdate;
+        fs.writeFileSync(fichier, JSON.stringify(tab));
+        return user;
+    } else {
+        return null;
+    }
+},
+
+
 
 
 /**FOR PAGINATION  */

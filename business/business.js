@@ -8,6 +8,12 @@ const maxNumber =100;
 
 const business = {
 
+
+    updateUser : function(data, userId , whatUpdate ,theUpdate){
+          console.log(data, userId , whatUpdate ,theUpdate);
+          return dataL.modifyUser(data, userId , whatUpdate ,theUpdate);
+    },
+    
     /**to add a user */
     AddUser :function(data)  {
         //console.log("AddUser");
@@ -16,7 +22,7 @@ const business = {
     },
 
 
-
+  
     getAllCustomers : function () {
         return dataL.getAllUsers();
     },

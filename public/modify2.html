@@ -162,17 +162,50 @@ submitButton.addEventListener("click", (event) => {
 
   console.log("serveur crééer sur le idd");
   const checkedValue = checkboxForm.querySelector("input[type=radio]:checked").value; 
-    
-  console.log(checkedValue);
-  console.log(inputText);
-  console.log(idd);
 
-  const Update = {
-    id: idd,
-    whatUpdate: checkedValue,
-    theUpdate: inputText,
+console.log(checkedValue);
+console.log(inputText);
+console.log(idd);
+
+let user1;
+
+fetch(`http://localhost:3001/api/customers/${idd}`)
+  .then(response => response.json())
+  .then(data => {
+    const user = data;
+    console.log(user);
+    // Faites quelque chose avec la variable user1
+  })
+  .catch(error => console.error(error));
+
+let Update = {};
+if (checkedValue === "first") {
+  Update = {
+    first: inputText,
   };
-  console.log(Update);
+}
+if (checkedValue === "last") {
+  Update = {
+    last: inputText,
+  };
+}
+if (checkedValue === "country") {
+  Update = {
+    country: inputText,
+  };
+}
+if (checkedValue === "company") {
+  Update = {
+    company: inputText,
+  };
+}
+if (checkedValue === "email") {
+  Update = {
+    email: inputText,
+  };
+}
+
+console.log(Update);
 
   fetch(`http://localhost:3001/api/customers/${idd}`, {
     method: 'PUT',
@@ -180,10 +213,10 @@ submitButton.addEventListener("click", (event) => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      [Update.whatUpdate]: Update.theUpdate
+      checkedValue : Update.inputText
     })
   })
-  .then(response => response.text())
+  .then(response => response.json())
   .then(data => console.log(data))
   .catch(error => console.error(error));
 });
