@@ -3,10 +3,31 @@ const fichier = "./data/customers.json";
 
 
 
+function testModify(user, idd) {
+    // Lire le fichier customers.json et le parser en tant qu'objet JavaScript
+    const users = JSON.parse(fs.readFileSync("./data/customers.json", 'utf8'));
+  
+    // Trouver l'utilisateur avec l'id 1235
+    const userLocal = users.find(u => u.id === idd)
+    userLocal.email = user.email;
+    userLocal.first = user.first;
+    userLocal.last = user.last;
+    userLocal.company = user.company;
+    userLocal.country = user.country;
+  
+    // Écrire les modifications dans le fichier customers.json
+    fs.writeFileSync('./data/customers.json', JSON.stringify(users), 'utf8');
+  }
+  
+
+
+
+
+
+
+
 /**dataLayer is a class that contains several methods for database manipulation */
 let dataLayer = {
-
-
 
 /**method to add new user in the data base  */
     addUser: function (data){
@@ -22,7 +43,7 @@ let dataLayer = {
         });
     },
 
-/**method to add new user in the data base  */
+/**method to MODIFY user in the data base  */
 modifyUser: function (data, userId , whatUpdate ,theUpdate ){
     const users = fs.readFileSync(fichier); 
     const tab= JSON.parse(users);

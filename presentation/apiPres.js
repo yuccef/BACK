@@ -28,7 +28,16 @@ const apiServ = {
         app.get('/api/customers', (req, res) => {
             res.json(customers);
           });
+          app.put('/api/customers', (req, res) => {
+            res.json(req.body);
+          });
           
+
+
+
+
+
+
           app.get('/api/customers/:id', (req, res) => {
             const id = req.params.id;
             const customer = customers.find(c => c.id === Number(id));
@@ -57,6 +66,10 @@ const apiServ = {
           
 
 
+
+
+
+
         /**Creating a NEW route where we can push the data of the new user*/
         app.post('/api/customers/add', function(req, res) {
             business.AddUser(req.body);
@@ -64,8 +77,10 @@ const apiServ = {
             });
 
         
+
+
            //Creating a NEW route where we can find liste.html
-            app.get('/api/customers/liste', function(req, res) {
+            app.get('/api/customers//liste', function(req, res) {
             res.sendFile(path.join(__dirname, '/../public/list.html'));
             });
 
@@ -75,6 +90,8 @@ const apiServ = {
                 res.sendFile(path.join(__dirname, '/../public/add.html'));
                     });
 
+
+                    
                     //Creating a NEW route where we can  Ajouter personne
                     app.get('/api/customers/liste/modify', function(req, res) {
                         res.sendFile(path.join(__dirname, '/../public/modify.html'));

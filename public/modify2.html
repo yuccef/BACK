@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -163,65 +164,70 @@ submitButton.addEventListener("click", (event) => {
   console.log("serveur crééer sur le idd");
   const checkedValue = checkboxForm.querySelector("input[type=radio]:checked").value; 
 
-console.log(checkedValue);
-console.log(inputText);
-console.log(idd);
+  console.log(checkedValue);
+  console.log(inputText);
+  console.log(idd);
 
-let user1;
+  fetch(`http://localhost:3001/api/customers/${idd}`)
+    .then(response => response.json())
+    .then(user => {
+      console.log(user);
 
-fetch(`http://localhost:3001/api/customers/${idd}`)
-  .then(response => response.json())
-  .then(data => {
-    const user = data;
-    console.log(user);
-    // Faites quelque chose avec la variable user1
+      if (checkedValue === "first") {
+        user.first = inputText;
+      }
+
+      if (checkedValue === "last") {
+        user.last = inputText;
+      }
+
+      if (checkedValue === "country") {
+        user.country = inputText;
+      }
+
+      if (checkedValue === "company") {
+        user.company = inputText;
+      }
+
+      if (checkedValue === "email") {
+        user.email = inputText;
+      }
+
+      console.log(user);
+
+
+// Lire le fichier customers.json et le parser en tant qu'objet JavaScript
+
+fetch('http://localhost:3001/api/customers/', {
+  method: 'PUT',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+  user
   })
-  .catch(error => console.error(error));
+})
+.then(response => response.json())
+.then(data => console.log(data))
+.catch(error => console.error(error));
 
-let Update = {};
-if (checkedValue === "first") {
-  Update = {
-    first: inputText,
-  };
-}
-if (checkedValue === "last") {
-  Update = {
-    last: inputText,
-  };
-}
-if (checkedValue === "country") {
-  Update = {
-    country: inputText,
-  };
-}
-if (checkedValue === "company") {
-  Update = {
-    company: inputText,
-  };
-}
-if (checkedValue === "email") {
-  Update = {
-    email: inputText,
-  };
-}
 
-console.log(Update);
-
-  fetch(`http://localhost:3001/api/customers/${idd}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      checkedValue : Update.inputText
+      fetch(`http://localhost:3001/api/customers/${idd}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(user)
+      })
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error(error));
     })
-  })
-  .then(response => response.json())
-  .then(data => console.log(data))
-  .catch(error => console.error(error));
+    .catch(error => console.error(error));
 });
-  
+
 
   </script>
+
 </body>
 </html>
