@@ -109,34 +109,35 @@ input[type="text"]:focus {
   <form>
     <div id="id-form">
       <label for="id">ID :</label>
-      <input type="text" id="id" name="id" required /><br /><br />
-    </div>
+      <input type="number" id="id" name="id" required /><br /><br /><br /><br />
+    </div><br /><br />
     <div id="form-form">
+      <label>Que ce que vous voulez modifier !</label><br /><br />
     <label>
-      <input type="radio" name="option" value="option1">
-      First
+      <input type="radio" name="option" value="first">
+      first
     </label>
     <br>
     <label>
-      <input type="radio" name="option" value="option2">
-      Last
+      <input type="radio" name="option" value="last">
+      last
     </label>
     <br>
     <label>
-      <input type="radio" name="option" value="option3">
-      Country
+      <input type="radio" name="option" value="country">
+      country
     </label>
     <br>
     <label>
-      <input type="radio" name="option" value="option4">
-      Company
+      <input type="radio" name="option" value="company">
+      company
     </label>
     <br>
     <label>
-      <input type="radio" name="option" value="option5">
-      Email
+      <input type="radio" name="option" value="email">
+      email
     </label>
-    <br>
+    <br><br /><br />
   </div>
     <div class="input-group">
       <label for="input-text">Ecrire la nouvelle valeur:</label>
@@ -147,51 +148,47 @@ input[type="text"]:focus {
   </form>
 
   <script>
-
 const inputText = document.getElementById('input-text').value;
 console.log(inputText);
 
 const submitButton = document.getElementById("submit-button");
 const idForm = document.getElementById("id-form");
+
 const checkboxForm = document.getElementById("form-form");
-const idd = idForm.querySelector("input[type='text']").value;
-      console.log(idd);
-;
+const idd = document.getElementById("id").value;
+
 submitButton.addEventListener("click", (event) => {
   event.preventDefault();
 
-
-  // Fonction pour créer les routes
-  function createRoutesForCustomers(idd) {
-    const routes = new Set();
-    const baseUrl = "http://localhost:3001/customer/";
-
-    const route = baseUrl + idd;
-    routes.add(route);
-
-    return routes;
-  }
-
-  const routes = createRoutesForCustomers(idd);
-
-  // Rediriger l'utilisateur vers la nouvelle route créée
-  const newRoute = Array.from(routes)[0];
-  //window.location.href = newRoute;
-  //window.location.href = "http://localhost:3001/api/customers/liste/modify2";
   console.log("serveur crééer sur le idd");
-    const checkedValues = Array.from(checkboxForm.querySelectorAll("input[type=radio]:checked"))
-                                .map(radio => radio.value);
+  const checkedValue = checkboxForm.querySelector("input[type=radio]:checked").value; 
     
-                                
-    console.log(checkedValues);
-    console.log(inputText);
-    console.log(idd);
+  console.log(checkedValue);
+  console.log(inputText);
+  console.log(idd);
 
+  const Update = {
+    id: idd,
+    whatUpdate: checkedValue,
+    theUpdate: inputText,
+  };
+  console.log(Update);
 
-
-    
-  
+  fetch(`http://localhost:3001/api/customers/${idd}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      [Update.whatUpdate]: Update.theUpdate
+    })
+  })
+  .then(response => response.text())
+  .then(data => console.log(data))
+  .catch(error => console.error(error));
 });
+  
+
   </script>
 </body>
 </html>

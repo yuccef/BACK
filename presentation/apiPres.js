@@ -4,8 +4,9 @@ const app = express();
 const cors = require('cors');
 const path = require('path');
 app.use(express.static(path.join(__dirname, '/../public')));
-
-
+const fs = require('fs');
+const data = fs.readFileSync('./data/customers.json');
+const customers = JSON.parse(data);
 
 
 //For the Data server use http://localhost:3001/api/customers
@@ -34,6 +35,19 @@ const apiServ = {
             res.json(resCustomers);
         });
 
+        customers.forEach(customer => {
+            const id = customer.id;
+            app.get(`/api/customers/${id}`, (req, res) => {
+              res.send(customer);
+            });
+            app.put(`/api/customers/${id}`, (req, res) => {
+                res.send('Update The client');
+              });
+          });
+
+         app.put('/api/customers/liste/modify2', function(req, res) {
+            res.json(req.body);
+            }); 
 
         /**Creating a NEW route where we can push the data of the new user*/
         app.post('/api/customers/add', function(req, res) {
@@ -61,6 +75,10 @@ const apiServ = {
                     app.get('/api/customers/liste/modify2', function(req, res) {
                         res.sendFile(path.join(__dirname, '/../public/modify2.html'));
                             });
+
+
+                        
+
 
         //run
         app.listen(port, function(){
