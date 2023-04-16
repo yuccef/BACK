@@ -84,25 +84,86 @@ form {
   </head>
   <body>
     <h1>Saisir l'ID de l'utilisateur à modifier</h1>
-  
+  <form>
     <form id="id-form">
+      
       <label for="id">ID :</label>
       <input type="id" id="id" name="id" required /><br /><br />
-      <input type="submit" id="submit-button" value="Valider" />
     </form>
-  
+
+    <form id="radio-form">
+      <div class="radio-group">
+        <label for="radio1">
+            <input type="radio" id="radio1" name="radio" value="1">
+            First
+        </label>
+        </div>
+        <div class="radio-group">
+        <label for="radio2">
+            <input type="radio" id="radio2" name="radio" value="2">
+            Last
+        </label></div>
+        <div class="radio-group">
+        <label for="radio3">
+            <input type="radio" id="radio3" name="radio" value="3">
+            Company
+        </label></div>
+        <div class="radio-group">
+        <label for="radio4">
+          <input type="radio" id="radio4" name="radio" value="4">
+          Country
+      </label></div>
+      <div class="radio-group">
+      <label for="radio5">
+        <input type="radio" id="radio5" name="radio" value="5">
+        Email
+    </label></div>
+    </form>
+    <input type="submit" id="submit-button" value="Valider" />
+  </form>
     <script>
-      const submitButton = document.getElementById("submit-button");
-      const idForm = document.getElementById("id-form");
+
+
+const submitButton = document.getElementById("submit-button");
+const idForm = document.getElementById("id-form");
+const checkboxForm = document.getElementById("radio-form");
+
+submitButton.addEventListener("click", (event) => {
+  event.preventDefault();
+
+  const idd = idForm.id.value;
+
+  // Fonction pour créer les routes
+  function createRoutesForCustomers(idd) {
+    const routes = new Set();
+    const baseUrl = "http://localhost:3001/customer/";
+
+    const route = baseUrl + idd;
+    routes.add(route);
+
+    return routes;
+  }
+
+  const routes = createRoutesForCustomers(idd);
+
+  // Rediriger l'utilisateur vers la nouvelle route créée
+  const newRoute = Array.from(routes)[0];
+  //window.location.href = newRoute;
+  //window.location.href = "http://localhost:3001/api/customers/liste/modify2";
+  console.log("serveur crééer sur le idd");
+    
+    const checkedValues = Array.from(checkboxForm.querySelectorAll("input[type=radio]:checked"))
+                                .map(radio => radio.value);
+    
+                                
+    console.log(checkedValues);
+
+
+
+
+    
   
-      submitButton.addEventListener("click", (event) => {
-        event.preventDefault();
-      
-        //  idForm.submit();
-         const idd= idForm.id.value;
-         co,so
-        window.location.href = "http://localhost:3001/api/customers/liste/modify2";
-      });
+});
     </script>
   </body>
   
