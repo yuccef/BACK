@@ -31,12 +31,14 @@ const apiServ = {
             origin: '*'
         }));
 
-      /** Route for All the DATA BASE*/
-        app.get('/api/customers', (req, res) => {
-            res.json(customers);
-          });
-        
- 
+            /** Route for All the DATA BASE*/
+            app.get('/api/customers', (req, res) => {
+                fs.readFile('./data/customers.json', (err, data) => {
+                if (err) throw err;
+                const customers = JSON.parse(data);
+                res.json(customers);
+              });
+            });
 
         /**New routes for each ID wehre we can find  data of each customer by her ID*/
         app.get('/api/customers/id/:id', (req, res) => {
@@ -108,10 +110,11 @@ const apiServ = {
        /**New route where we can Delete a customer from the data Base*/
         /**the DELETE option is for Deleting data in the server */
         app.delete('/api/customers', (req, res) => {
-          const clientid = req.query.id;
-          let message = business.deleteUser(clientid);
-          res.status(200).send(message);
-      })
+          business.deleteUser(req.query.id);
+          res.json(customers);
+        })
+  
+    
 
 
 
