@@ -163,6 +163,16 @@ const idd = document.getElementById("id").value;
 submitButton.addEventListener("click", (event) => {
   event.preventDefault();
 
+  const inputText = document.getElementById('input-text').value;
+console.log(inputText);
+
+const submitButton = document.getElementById("submit-button");
+const idForm = document.getElementById("id-form");
+
+const checkboxForm = document.getElementById("form-form");
+const idd = document.getElementById("id").value;
+
+
   console.log("serveur crééer sur le idd");
   const checkedValue = checkboxForm.querySelector("input[type=radio]:checked").value; 
 

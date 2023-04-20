@@ -108,14 +108,11 @@ const apiServ = {
 
 
 
-               app.delete('/api/customers/id/:id', (req, res) => {
+                   app.delete('/api/customers/id/:id', (req, res) => {
                     const id = req.params.id;
-                
-                      business.deleteUser(req.body, id);
-                      res.json(req.body);  
-        
-                
-
+            
+                    business.deleteUser(req.body,id);
+                    res.json(data);  
                   });
 
                   

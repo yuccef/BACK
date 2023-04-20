@@ -7,42 +7,42 @@ const fichier = "./data/customers.json";  /**To get the Data Base */
 /**dataLayer is a class that contains several methods for database manipulation */
 let dataLayer = {
 
-
-    del: function(data, id) {
-        const fs = require('fs');
-      
-        const customers = JSON.parse(fs.readFileSync("./data/customers.json", 'utf8'));
-      
-        // Recherche de l'index de l'utilisateur avec l'ID correspondant
-        const index = customers.findIndex(c => c.id === id.toString());
-      
-        if (index === -1) {
-          console.log(`Aucun utilisateur trouvé avec l'ID ${id}.`);
-          return customers;
-        }
-      
-        // Suppression de l'utilisateur
-        customers.splice(index, 1);
-      
-        // Décrémentation des ID des utilisateurs suivants
-        for (let i = index + 1; i < customers.length; i++) {
-          customers[i].id = customers[i].id - 1;
-        }
-      
-        // Sauvegarde des modifications apportées au fichier JSON
-        fs.writeFile("./data/customers.json", JSON.stringify(customers), (err) => {
-          if (err) {
-            console.log("Une erreur s'est produite lors de la sauvegarde des données.");
-            console.log(err);
-          } else {
-            console.log(`L'utilisateur avec l'ID ${id} a été supprimé.`);
-          }
-        });
-      
-        // Retourne les données modifiées
-        return customers;
-      },
-      
+del: async function(data, id) {
+  try {
+    const fs = require('fs');
+  
+    const customers = JSON.parse(fs.readFileSync("./data/customers.json", 'utf8'));
+  
+    // Recherche de l'index de l'utilisateur avec l'ID correspondant
+    const index = customers.findIndex(c => c.id === id);
+  
+    if (index === -1) {
+      console.log(`Aucun utilisateur trouvé avec l'ID ${id}.`);
+      return customers;
+    }
+  
+    // Suppression de l'utilisateur
+    customers.splice(index, 1);
+  
+    // Décrémentation des ID des utilisateurs suivants
+    for (let i = index + 1; i < customers.length; i++) {
+      customers[i].id = customers[i].id - 1;
+    }
+  
+    // Sauvegarde des modifications apportées au fichier JSON
+    await fs.promises.writeFile("./data/customers.json", JSON.stringify(customers));
+  
+    // Affichage du message de succès
+    console.log(`L'utilisateur avec l'ID ${id} a été supprimé.`);
+  
+    // Retourne les données modifiées
+    return customers;
+  } catch (err) {
+    console.error(err);
+    throw err; // Relancer l'erreur pour qu'elle soit interceptée ailleurs si nécessaire
+  }
+}
+,
 
 /** method Up function to Modify DataBase */
     Up :function(data){
