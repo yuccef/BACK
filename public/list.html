@@ -79,12 +79,12 @@
 
     
     button:hover {
-      background-color: #5f7eda;
+      background-color:#6c4f9a;
     }
     
     /* Appliquer le style Bootstrap au select */
     #pageSizeSelect {
-      background-color: #7c62b3;
+      background-color:  #5f7eda;
       color: #fff;
       border: none;
       padding: 5px 10px;
@@ -115,104 +115,97 @@
 
 
   <select id="pageSizeSelect">
-		<option value="15">15</option>
-		<option value="20">20</option>
-		<option value="30" selected>30</option>
-		<option value="50">50</option>
-	</select>
-  
-   <button id="firstButton">Première</button> 
+    <option value="15">15</option>
+    <option value="20">20</option>
+    <option value="30" selected>30</option>
+    <option value="50">50</option>
+  </select>
+
+
+  <button id="firstButton">Première</button> 
   <button id="prevButton">Précédent</button> 
   <button id="nextButton">Suivant</button>
   <button id="lastButton">Dernière</button> 
-
+  
   <a id="AddButton" href=" http://localhost:3001/api/customers/liste/add"><button class="add">Ajouter</button></a>	
   <a id="modify" href=" http://localhost:3001/api/customers/liste/modify"><button class="modify">Modifier</button></a>
   <a id="deleteButton" href=" http://localhost:3001/api/customers/liste/delete"><button class="delete">Supprimer</button></a>	
-
-
-
-    <table id="catTable">
-        <thead>
-          <tr>
-          
-            <th data-sort="id">ID</th>
-            <th data-sort="email">email</th>
-            <th data-sort="first">First</th>
-            <th data-sort="last">Last</th>
-            <th data-sort="company">Company</th>
-            <th data-sort="created_at">Created_at</th>
-            <th data-sort="country">Country</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td colspan="4"><i>Loading...</i></td></tr>
-        </tbody>
-      </table>
-
-
-
-
- <script>
-
-let data, table, sortCol;
-let sortAsc = false;
-let pageSize = 30;
-let curPage = 1;
-
-const selectElement = document.querySelector('#pageSizeSelect');
-selectElement.addEventListener('change', (event) => {
-  const newPageSize = parseInt(event.target.value);
-  curPage = 1;
-  pageSize = newPageSize;
-  console.log(newPageSize);
-});
-
+  
+  
+  <table id="catTable">
+    <thead>
+      <tr>
+        <th data-sort="id">ID</th>
+        <th data-sort="email">email</th>
+        <th data-sort="first">First</th>
+        <th data-sort="last">Last</th>
+        <th data-sort="company">Company</th>
+        <th data-sort="created_at">Created_at</th>
+        <th data-sort="country">Country</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td colspan="4"><i>Loading...</i></td></tr>
+    </tbody>
+  </table>
+  
+  <script>
+  
+  let data, table, sortCol;
+  let sortAsc = false;
+  let pageSize = 30;
+  let curPage = 1;
+  
+  const selectElement = document.querySelector('#pageSizeSelect');
+  selectElement.addEventListener('change', (event) => {
+    const newPageSize = parseInt(event.target.value);
+    curPage = Math.floor(((curPage-1) * pageSize) / newPageSize) + 1;
+    pageSize = newPageSize;
+    renderTable();
+  });
+  
   document.addEventListener('DOMContentLoaded', init, false);
-
-
-
-async function init() {
   
-  // Select the table (well, tbody)
-  table = document.querySelector('#catTable tbody');
-  // get the cats
-  let resp = await fetch('http://localhost:3001/api/customers');
-  data = await resp.json();
-  renderTable();
+  async function init() {
+    
+    // Select the table (well, tbody)
+    table = document.querySelector('#catTable tbody');
+    // get the cats
+    let resp = await fetch('http://localhost:3001/api/customers');
+    data = await resp.json();
+    renderTable();
+    
+    // listen for sort clicks
+    document.querySelectorAll('#catTable thead tr th').forEach(t => {
+       t.addEventListener('click', sort, false);
+    });
   
-  // listen for sort clicks
-  document.querySelectorAll('#catTable thead tr th').forEach(t => {
-     t.addEventListener('click', sort, false);
-  });
-
-  document.querySelector('#firstButton').addEventListener('click', firstPage, false);
-  document.querySelector('#nextButton').addEventListener('click', nextPage, false);
-  document.querySelector('#prevButton').addEventListener('click', previousPage, false);
-  document.querySelector('#lastButton').addEventListener('click', lastPage, false);
-
-}
-
-function renderTable() {
-  // create html
-  let result = '';
-  data.filter((row, index) => {
-        let start = (curPage-1)*pageSize;
-        let end =curPage*pageSize;
-        if(index >= start && index < end) return true;
-  }).forEach(c => {
-     result += `<tr>
-     <td>${c.id}</td>
-     <td>${c.email}</td>
-     <td>${c.first}</td>
-     <td>${c.last}</td>
-     <td>${c.company}</td>
-     <td>${c.created_at}</td>
-     <td>${c.country}</td>
-     </tr>`;
-  });
-  table.innerHTML = result;
-}
+    document.querySelector('#firstButton').addEventListener('click', firstPage, false);
+    document.querySelector('#nextButton').addEventListener('click', nextPage, false);
+    document.querySelector('#prevButton').addEventListener('click', previousPage, false);
+    document.querySelector('#lastButton').addEventListener('click', lastPage, false);
+  
+  }
+  
+  function renderTable() {
+    // create html
+    let result = '';
+    const start = (curPage-1) * pageSize;
+    const end = start + pageSize;
+    const dataSubset = data.slice(start, end);
+    dataSubset.forEach(c => {
+       result += `<tr>
+       <td>${c.id}</td>
+       <td>${c.email}</td>
+       <td>${c.first}</td>
+       <td>${c.last}</td>
+       <td>${c.company}</td>
+       <td>${c.created_at}</td>
+       <td>${c.country}</td>
+       </tr>`;
+    });
+    table.innerHTML = result;
+  }
 
 function sort(e) {
   let thisSort = e.target.dataset.sort;
