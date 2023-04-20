@@ -98,26 +98,21 @@ const apiServ = {
                      });
 
 
-               /**New route to modify a customer (Updates in data base) */
-               app.get('/api/customers/liste/delete', function(req, res) {
-                res.sendFile(path.join(__dirname, '/../public/delete.html'));
+
+        /**New route where we can Delete a customer from the data Base*/
+        app.get('/api/customers/liste/delete', function(req, res) {
+                   res.sendFile(path.join(__dirname, '/../public/delete.html'));
                    });
 
 
-                   
-
-
-
-                   app.delete('/api/customers/id/:id', (req, res) => {
-                    const id = req.params.id;
-            
-                    business.deleteUser(req.body,id);
-                    res.json(data);  
+        /**New route where we can Delete a customer from the data Base*/
+        /**the DELETE option is for Deleting data in the server */
+         app.delete('/api/customers/id/:id', (req, res) => {
+                     const id = req.params.id; 
+                     business.deleteUser(req.body,id);
+                     res.json(data);  
                   });
-
-                  
-
-
+            
 
         /**Server running on port */
         app.listen(port, function(){
