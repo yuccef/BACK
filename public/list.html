@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Customers Table</title>
+	<title>Liste des Clients</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
@@ -104,7 +104,7 @@ html, body {
 	</select>
   
   <a id="AddButton" href=" http://localhost:3001/api/customers/liste/add"><button>Ajouter</button></a>	
-  <a id="modify" href=" http://localhost:3001/api/customers/liste/modify2"><button>Modifier</button></a>
+  <a id="modify" href=" http://localhost:3001/api/customers/liste/modify"><button>Modifier</button></a>
  
   <button id="firstButton">First</button> 
   <button id="prevButton">Previous</button> 
@@ -132,7 +132,7 @@ html, body {
 
 
 
-      <script>
+ <script>
 
 let data, table, sortCol;
 let sortAsc = false;
@@ -233,18 +233,3 @@ function lastPage() {
 
 
 
-<!-- $(document).ready(function() {
-  $.getJSON("http://localhost:3001/api/customers", function(data) {
-    $.each(data, function(key, customer) {
-      var tr = $("<tr>");
-              tr.append("<td>" + customer.id + "</td>");
-      tr.append("<td>" + customer.email + "</td>");
-      tr.append("<td>" + customer.first + "</td>")
-      tr.append("<td>" + customer.last + "</td>");
-      tr.append("<td>" + customer.company + "</td>");
-      tr.append("<td>" + customer.created_at + "</td>");
-                tr.append("<td>" + customer.counrty + "</td>");
-      $("#customersTable tbody").append(tr);
-    });
-  });
-}); -->

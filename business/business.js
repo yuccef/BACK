@@ -1,29 +1,29 @@
-const dataL = require("../data/datalayer");
+const dataL = require("../data/datalayer");  /** Pick up methods of dataLayer */
+
 
 
 const business = {
 
 
+    /**To Update the Data base */
      UpDater:function(data){
         console.log(data);
         return dataL.Up(data);
      },
 
-    /**to add a user */
+    /**To Add a user */
     AddUser :function(data)  {
-        //console.log("AddUser");
         console.log(data);
         return dataL.addUser(data);
     },
 
-
-  
+    /**To get customers */
     getAllCustomers : function () {
         return dataL.getAllUsers();
     },
 
-
-
 };
 
+
+/**export the class to use it on other files */
 module.exports = business;

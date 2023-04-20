@@ -1,7 +1,5 @@
 const fs = require("fs");
-const fichier = "./data/customers.json"; 
-
-
+const fichier = "./data/customers.json";  /**To get the Data Base */
 
 
 
@@ -10,16 +8,18 @@ const fichier = "./data/customers.json";
 let dataLayer = {
 
 
+/** method Up function to Modify DataBase */
     Up :function(data){
    
-        // Récupérer les données actuelles du fichier customers.json
+        //Get current data from clients.json file
         const customers = JSON.parse(fs.readFileSync("./data/customers.json", 'utf8'));
         
-          // Récupérer les nouvelles données depuis le serveur
-          fetch('http://localhost:3001/api/customers')
+          // Get new data from server
+            fetch('http://localhost:3001/api/customers')
             .then(response => response.json())
             .then(newData => {
-              // Mettre à jour les données existantes avec les nouvelles données
+
+              // Update existing data with new data
               newData.forEach(newCustomer => {
                 const index = customers.findIndex(c => c.id === newCustomer.id);
                 if (index !== -1) {
@@ -29,7 +29,7 @@ let dataLayer = {
                 }
               });
         
-              // Écrire les nouvelles données dans le fichier customers.json
+              // Write the new data in customers.json file
               fs.writeFile('./data/customers.json', JSON.stringify(customers), err => {
                 if (err) {
                   console.error(err);
@@ -44,10 +44,7 @@ let dataLayer = {
     },
 
 
-
-
-
-/**method to add new user in the data base  */
+/** method addUser function to add a user on DataBase */
     addUser: function (data){
         const users = fs.readFileSync(fichier); 
         const tab= JSON.parse(users);
@@ -60,23 +57,6 @@ let dataLayer = {
             console.log("Utilisateur ajouté");
         });
     },
-
-/**method to MODIFY user in the data base  */
-modifyUser: function (data, userId , whatUpdate ,theUpdate ){
-    const users = fs.readFileSync(fichier); 
-    const tab= JSON.parse(users);
-    const user = tab.find(user => user.id === userId);
-    if (user) {
-        user[whatUpdate] = theUpdate;
-        fs.writeFileSync(fichier, JSON.stringify(tab));
-        return user;
-    } else {
-        return null;
-    }
-},
-
-
-
 
 /**FOR PAGINATION  */
 
@@ -116,5 +96,6 @@ modifyUser: function (data, userId , whatUpdate ,theUpdate ){
 
 };
 
-/**export the class */
+
+/**export the class to use it on other files */
 module.exports =dataLayer;

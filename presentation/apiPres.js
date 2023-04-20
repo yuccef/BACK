@@ -1,48 +1,45 @@
 const express = require("express");
-const business = require("../business/business");
 const app = express();
 const cors = require('cors');
 const path = require('path');
+
+const business = require("../business/business");
 app.use(express.static(path.join(__dirname, '/../public')));
+
+
+/** Pick up the dataBase*/
 const fs = require('fs');
 const data = fs.readFileSync('./data/customers.json');
 const customers = JSON.parse(data);
-const bodyParser = require('body-parser');
 
-// Augmenter la limite de taille maximale à 50 Mo
+
+/** Increase maximum size limit to 50*/
+const bodyParser = require('body-parser');
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
-//For the Data server use http://localhost:3001/api/customers
-//For the Liste in internet server use http://localhost:3001/api/customers/liste
-//Add a user use (FRONT) http://localhost:3001/api/customers/liste/add
-//Add a user use (BACK) http://localhost:3001/api/customers/add
 
-
-
+/**apiServ  is a class that contains several methods for server manipulation */
 const apiServ = {
+
     start: function(port) {
-        
+    
         app.use(express.json());
 
+      
         app.use(cors({
             origin: '*'
         }));
 
+      /** Route for All the DATA BASE*/
         app.get('/api/customers', (req, res) => {
             res.json(customers);
           });
 
 
 
-          app.get('/api/customers/liste/modify2', function(req, res) {
-            res.sendFile(path.join(__dirname, '/../public/modify2.html'));
-                });
-
-
-
-
-          app.get('/api/customers/:id', (req, res) => {
+        /**New routes for each ID wehre we can find  data of each customer by her ID*/
+        app.get('/api/customers/:id', (req, res) => {
             const id = req.params.id;
             const customer = customers.find(c => c.id === Number(id));
             if (customer) {
@@ -52,8 +49,10 @@ const apiServ = {
             }
           });
           
-
-          app.put('/api/customers/:id', (req, res) => {
+        
+        /**New route where we can push the data of the new user*/
+        /**the PUT option is for Updating data in the server */
+        app.put('/api/customers/:id', (req, res) => {
             const id = req.params.id;
             const customer = customers.find(c => c.id === Number(id));
             if (customer) {
@@ -72,47 +71,40 @@ const apiServ = {
           });
           
 
-
-
-
-
-
-        /**Creating a NEW route where we can push the data of the new user*/
+        /**NEW route where we can push the data of new customer*/
+        /**the POST option is for Adding data in the server */
         app.post('/api/customers/add', function(req, res) {
             business.AddUser(req.body);
             res.json(req.body);
             });
 
         
-
-
-           //Creating a NEW route where we can find liste.html
-            app.get('/api/customers//liste', function(req, res) {
+        /**New route to get the list of customers */
+        app.get('/api/customers//liste', function(req, res) {
             res.sendFile(path.join(__dirname, '/../public/list.html'));
             });
 
 
-             //Creating a NEW route where we can  Ajouter personne
-             app.get('/api/customers/liste/add', function(req, res) {
+        /**New route to Add a customers  */
+        app.get('/api/customers/liste/add', function(req, res) {
                 res.sendFile(path.join(__dirname, '/../public/add.html'));
                     });
-                    
-                                   //Creating a NEW route where we can  Ajouter personne
-                    app.get('/api/customers/liste/modify2', function(req, res) {
-                        res.sendFile(path.join(__dirname, '/../public/modify2.html'));
-                            });
 
 
-                        
+        /**New route to modify a customer (Updates in data base) */
+        app.get('/api/customers/liste/modify', function(req, res) {
+                  res.sendFile(path.join(__dirname, '/../public/modify.html'));
+                     });
+        
 
-
-        //run
+        /**Server running on port */
         app.listen(port, function(){
             console.log("Server running on port " + port);
         });
     }
 }
 
+/**export the class to use it on other files */
 module.exports = apiServ;
 
 
