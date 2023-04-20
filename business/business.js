@@ -3,7 +3,11 @@ const dataL = require("../data/datalayer");  /** Pick up methods of dataLayer */
 
 
 const business = {
-
+    /**To Update the Data base */
+    deleteUser:function(data, id){
+        console.log(data);
+        return dataL.del(data, id);
+     },
 
     /**To Update the Data base */
      UpDater:function(data){

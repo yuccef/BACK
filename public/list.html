@@ -45,7 +45,7 @@
     }
     
     /* Définir les styles des boutons */
-    button, a {
+    button {
       background-color: #7c62b3;
       color: #fff;
       border: none;
@@ -55,9 +55,30 @@
       margin: 10px;
       box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
       transition: background-color 0.3s ease-out;
+
+      
     }
+
+.modify {
+  background-color: orange;
+  color: white;
+  float: right;
+}
+
+.delete {
+  background-color: red;
+  color: white;
+  float: right;
+}
+.add {
+  background-color: green;
+  color: white;
+  float: right;
+}
+
+
     
-    button:hover, a:hover {
+    button:hover {
       background-color: #6c4f9a;
     }
     
@@ -100,13 +121,16 @@
 		<option value="50">50</option>
 	</select>
   
-  <a id="AddButton" href=" http://localhost:3001/api/customers/liste/add"><button>Ajouter</button></a>	
-  <a id="modify" href=" http://localhost:3001/api/customers/liste/modify"><button>Modifier</button></a>
- 
-  <button id="firstButton">First</button> 
+   <button id="firstButton">First</button> 
   <button id="prevButton">Previous</button> 
   <button id="nextButton">Next</button>
   <button id="lastButton">Last</button> 
+
+  <a id="AddButton" href=" http://localhost:3001/api/customers/liste/add"><button class="add">Ajouter</button></a>	
+  <a id="modify" href=" http://localhost:3001/api/customers/liste/modify"><button class="modify">Modifier</button></a>
+  <a id="deleteButton" href=" http://localhost:3001/api/customers/liste/delete"><button class="delete">Supprimer</button></a>	
+
+
 
     <table id="catTable">
         <thead>

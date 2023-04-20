@@ -8,6 +8,42 @@ const fichier = "./data/customers.json";  /**To get the Data Base */
 let dataLayer = {
 
 
+    del: function(data, id) {
+        const fs = require('fs');
+      
+        const customers = JSON.parse(fs.readFileSync("./data/customers.json", 'utf8'));
+      
+        // Recherche de l'index de l'utilisateur avec l'ID correspondant
+        const index = customers.findIndex(c => c.id === id.toString());
+      
+        if (index === -1) {
+          console.log(`Aucun utilisateur trouvé avec l'ID ${id}.`);
+          return customers;
+        }
+      
+        // Suppression de l'utilisateur
+        customers.splice(index, 1);
+      
+        // Décrémentation des ID des utilisateurs suivants
+        for (let i = index + 1; i < customers.length; i++) {
+          customers[i].id = customers[i].id - 1;
+        }
+      
+        // Sauvegarde des modifications apportées au fichier JSON
+        fs.writeFile("./data/customers.json", JSON.stringify(customers), (err) => {
+          if (err) {
+            console.log("Une erreur s'est produite lors de la sauvegarde des données.");
+            console.log(err);
+          } else {
+            console.log(`L'utilisateur avec l'ID ${id} a été supprimé.`);
+          }
+        });
+      
+        // Retourne les données modifiées
+        return customers;
+      },
+      
+
 /** method Up function to Modify DataBase */
     Up :function(data){
    

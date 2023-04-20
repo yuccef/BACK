@@ -35,8 +35,8 @@ const apiServ = {
         app.get('/api/customers', (req, res) => {
             res.json(customers);
           });
-
-
+        
+ 
 
         /**New routes for each ID wehre we can find  data of each customer by her ID*/
         app.get('/api/customers/id/:id', (req, res) => {
@@ -48,6 +48,7 @@ const apiServ = {
               res.status(404).json({ message: 'Customer not found' });
             }
           });
+          
           
         
         /**New route where we can push the data of the new user*/
@@ -95,7 +96,31 @@ const apiServ = {
         app.get('/api/customers/liste/modify', function(req, res) {
                   res.sendFile(path.join(__dirname, '/../public/modify.html'));
                      });
+
+
+               /**New route to modify a customer (Updates in data base) */
+               app.get('/api/customers/liste/delete', function(req, res) {
+                res.sendFile(path.join(__dirname, '/../public/delete.html'));
+                   });
+
+
+                   
+
+
+
+               app.delete('/api/customers/id/:id', (req, res) => {
+                    const id = req.params.id;
+                
+                      business.deleteUser(req.body, id);
+                      res.json(req.body);  
         
+                
+
+                  });
+
+                  
+
+
 
         /**Server running on port */
         app.listen(port, function(){
