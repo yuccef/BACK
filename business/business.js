@@ -1,14 +1,12 @@
 const dataL = require("../data/datalayer");  /** Pick up methods of dataLayer */
 
 
-
 const business = {
-    
+
     /** method del function to delete a user form the  DataBase */
-    deleteUser:function( data, id){
-       console.log(data);
-        return dataL.del(data,id);
-     },
+    deleteUser : function(user){
+        let test = dataL.Del(user);
+    },
 
     /**To Update the Data base */
      UpDater:function(data){
@@ -26,6 +24,7 @@ const business = {
     getAllCustomers : function () {
         return dataL.getAllUsers();
     },
+    
 
 };
 

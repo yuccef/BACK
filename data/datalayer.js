@@ -3,45 +3,31 @@ const fichier = "./data/customers.json";  /**To get the Data Base */
 
 
 
-
 /**dataLayer is a class that contains several methods for database manipulation */
 let dataLayer = {
 
-/** method del function to delete a user form the  DataBase */
-del: async function(data, id) {
-  try {
-    const fs = require('fs');
-  
-    const customers = JSON.parse(fs.readFileSync("./data/customers.json", 'utf8'));
-  
-    /**Find user index with matching id */
-    const index = customers.findIndex(c => c.id === id);
-  
-    if (index === -1) {
-      console.log(`Aucun utilisateur trouvé avec l'ID ${id}.`);
-      return customers;
-    }
-  
-    /**Deleting a User */
-    customers.splice(index, 1);
-  
-    /**Decrement subsequent user IDs */
-    for (let i = index + 1; i < customers.length; i++) {
-      customers[i].id = customers[i].id - 1;
-    }
-  
-    /**Save changes to JSON file */
-    await fs.promises.writeFile("./data/customers.json", JSON.stringify(customers));
-  
-  
-    console.log(`L'utilisateur avec l'ID ${id} a été supprimé.`);
-  
-  } catch (err) {
-    console.error(err);
-    throw err; 
-  }
-}
-,
+    /** method del function to delete a user form the  DataBase */
+    Del : function(data){
+        //get data from json file
+        const users = fs.readFileSync(fichier);
+        //parse to object
+        let newCustomer = JSON.parse(users);
+        //findIndex permet de retrouver un user en fonction du param removeuser
+        const index = newCustomer.findIndex(user => user.id === parseInt(data));
+        
+        if (index != -1) {
+            //puis de le retirer s'il existe 
+            newCustomer.splice(index, 1);
+            //et de reecrire le fichier
+            fs.writeFileSync(fichier, JSON.stringify(newCustomer, null, 2));
+            console.log("Utilisateur supprimé .");
+            return 1;
+        } else 
+        console.log("Utilisateur non trouvé .");
+          return 0;        
+    },
+
+
 
 /** method Up function to Modify DataBase */
     Up :function(data){

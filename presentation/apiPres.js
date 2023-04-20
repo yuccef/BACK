@@ -104,15 +104,16 @@ const apiServ = {
                    res.sendFile(path.join(__dirname, '/../public/delete.html'));
                    });
 
-
-        /**New route where we can Delete a customer from the data Base*/
+          
+       /**New route where we can Delete a customer from the data Base*/
         /**the DELETE option is for Deleting data in the server */
-         app.delete('/api/customers/id/:id', (req, res) => {
-                     const id = req.params.id; 
-                     business.deleteUser(req.body,id);
-                     res.json(data);  
-                  });
-            
+        app.delete('/api/customers', (req, res) => {
+          const clientid = req.query.id;
+          let message = business.deleteUser(clientid);
+          res.status(200).send(message);
+      })
+
+
 
         /**Server running on port */
         app.listen(port, function(){
