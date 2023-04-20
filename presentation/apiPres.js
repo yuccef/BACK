@@ -39,7 +39,7 @@ const apiServ = {
 
 
         /**New routes for each ID wehre we can find  data of each customer by her ID*/
-        app.get('/api/customers/:id', (req, res) => {
+        app.get('/api/customers/id/:id', (req, res) => {
             const id = req.params.id;
             const customer = customers.find(c => c.id === Number(id));
             if (customer) {
@@ -52,7 +52,7 @@ const apiServ = {
         
         /**New route where we can push the data of the new user*/
         /**the PUT option is for Updating data in the server */
-        app.put('/api/customers/:id', (req, res) => {
+        app.put('/api/customers/id/:id', (req, res) => {
             const id = req.params.id;
             const customer = customers.find(c => c.id === Number(id));
             if (customer) {
@@ -80,7 +80,7 @@ const apiServ = {
 
         
         /**New route to get the list of customers */
-        app.get('/api/customers//liste', function(req, res) {
+        app.get('/api/customers/liste', function(req, res) {
             res.sendFile(path.join(__dirname, '/../public/list.html'));
             });
 

@@ -168,7 +168,7 @@ submitButton.addEventListener("click", (event) => {
   console.log(inputText);
   console.log(idd);
 
-  fetch(`http://localhost:3001/api/customers/${idd}`)
+  fetch(`http://localhost:3001/api/customers/id/${idd}`)
   
     .then(response => response.json())
     .then(user => {
@@ -196,7 +196,7 @@ submitButton.addEventListener("click", (event) => {
 
 
 
-      fetch(`http://localhost:3001/api/customers/${idd}`, {
+      fetch(`http://localhost:3001/api/customers/id/${idd}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
