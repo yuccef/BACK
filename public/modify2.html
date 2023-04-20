@@ -169,6 +169,7 @@ submitButton.addEventListener("click", (event) => {
   console.log(idd);
 
   fetch(`http://localhost:3001/api/customers/${idd}`)
+  
     .then(response => response.json())
     .then(user => {
       console.log(user);
@@ -193,23 +194,11 @@ submitButton.addEventListener("click", (event) => {
         user.email = inputText;
       }
 
-      console.log(user);
 
-
+console.log("test1");
 // Lire le fichier customers.json et le parser en tant qu'objet JavaScript
 
-fetch('http://localhost:3001/api/customers/', {
-  method: 'PUT',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({
-  user
-  })
-})
-.then(response => response.json())
-.then(data => console.log(data))
-.catch(error => console.error(error));
+
 
 
       fetch(`http://localhost:3001/api/customers/${idd}`, {
@@ -224,6 +213,11 @@ fetch('http://localhost:3001/api/customers/', {
       .catch(error => console.error(error));
     })
     .catch(error => console.error(error));
+
+
+ 
+
+
 });
 
 

@@ -3,31 +3,49 @@ const fichier = "./data/customers.json";
 
 
 
-function testModify(user, idd) {
-    // Lire le fichier customers.json et le parser en tant qu'objet JavaScript
-    const users = JSON.parse(fs.readFileSync("./data/customers.json", 'utf8'));
-  
-    // Trouver l'utilisateur avec l'id 1235
-    const userLocal = users.find(u => u.id === idd)
-    userLocal.email = user.email;
-    userLocal.first = user.first;
-    userLocal.last = user.last;
-    userLocal.company = user.company;
-    userLocal.country = user.country;
-  
-    // Écrire les modifications dans le fichier customers.json
-    fs.writeFileSync('./data/customers.json', JSON.stringify(users), 'utf8');
-  }
-  
-
-
-
-
 
 
 
 /**dataLayer is a class that contains several methods for database manipulation */
 let dataLayer = {
+
+
+    Up :function(data){
+   
+        // Récupérer les données actuelles du fichier customers.json
+        const customers = JSON.parse(fs.readFileSync("./data/customers.json", 'utf8'));
+        
+          // Récupérer les nouvelles données depuis le serveur
+          fetch('http://localhost:3001/api/customers')
+            .then(response => response.json())
+            .then(newData => {
+              // Mettre à jour les données existantes avec les nouvelles données
+              newData.forEach(newCustomer => {
+                const index = customers.findIndex(c => c.id === newCustomer.id);
+                if (index !== -1) {
+                  customers[index] = { ...customers[index], ...newCustomer };
+                } else {
+                  customers.push(newCustomer);
+                }
+              });
+        
+              // Écrire les nouvelles données dans le fichier customers.json
+              fs.writeFile('./data/customers.json', JSON.stringify(customers), err => {
+                if (err) {
+                  console.error(err);
+                  return;
+                }
+                console.log('Les données ont été mises à jour dans le fichier customers.json');
+              });
+            })
+            .catch(error => console.error(error));
+     
+        
+    },
+
+
+
+
 
 /**method to add new user in the data base  */
     addUser: function (data){

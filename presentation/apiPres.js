@@ -7,7 +7,11 @@ app.use(express.static(path.join(__dirname, '/../public')));
 const fs = require('fs');
 const data = fs.readFileSync('./data/customers.json');
 const customers = JSON.parse(data);
+const bodyParser = require('body-parser');
 
+// Augmenter la limite de taille maximale à 50 Mo
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 //For the Data server use http://localhost:3001/api/customers
 //For the Liste in internet server use http://localhost:3001/api/customers/liste
@@ -28,12 +32,12 @@ const apiServ = {
         app.get('/api/customers', (req, res) => {
             res.json(customers);
           });
-          app.put('/api/customers', (req, res) => {
-            res.json(req.body);
-          });
-          
 
 
+
+          app.get('/api/customers/liste/modify2', function(req, res) {
+            res.sendFile(path.join(__dirname, '/../public/modify2.html'));
+                });
 
 
 
@@ -48,6 +52,7 @@ const apiServ = {
             }
           });
           
+
           app.put('/api/customers/:id', (req, res) => {
             const id = req.params.id;
             const customer = customers.find(c => c.id === Number(id));
@@ -58,7 +63,9 @@ const apiServ = {
               customer.company = req.body.company;
               customer.country = req.body.country;
 
-              res.json(customer);
+              business.UpDater(req.body);
+              res.json(req.body);  
+
             } else {
               res.status(404).json({ message: 'Customer not found' });
             }
@@ -89,13 +96,7 @@ const apiServ = {
              app.get('/api/customers/liste/add', function(req, res) {
                 res.sendFile(path.join(__dirname, '/../public/add.html'));
                     });
-
-
                     
-                    //Creating a NEW route where we can  Ajouter personne
-                    app.get('/api/customers/liste/modify', function(req, res) {
-                        res.sendFile(path.join(__dirname, '/../public/modify.html'));
-                            });
                                    //Creating a NEW route where we can  Ajouter personne
                     app.get('/api/customers/liste/modify2', function(req, res) {
                         res.sendFile(path.join(__dirname, '/../public/modify2.html'));

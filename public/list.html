@@ -3,7 +3,6 @@
 <head>
 	<title>Customers Table</title>
 	<meta charset="UTF-8">
-<script src="test.js"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         /* Appliquer un style de base à la page */
@@ -91,11 +90,19 @@ html, body {
   }
   
     </style>
-    <link rel="stylesheet" href="test.css" >
 
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
+
+
+  <select id="pageSizeSelect">
+		<option value="15">15</option>
+		<option value="20">20</option>
+		<option value="30" selected>30</option>
+		<option value="50">50</option>
+	</select>
+  
   <a id="AddButton" href=" http://localhost:3001/api/customers/liste/add"><button>Ajouter</button></a>	
   <a id="modify" href=" http://localhost:3001/api/customers/liste/modify2"><button>Modifier</button></a>
  
@@ -126,12 +133,23 @@ html, body {
 
 
       <script>
-        document.addEventListener('DOMContentLoaded', init, false);
 
 let data, table, sortCol;
 let sortAsc = false;
-const pageSize = 30;
+let pageSize = 30;
 let curPage = 1;
+
+const selectElement = document.querySelector('#pageSizeSelect');
+selectElement.addEventListener('change', (event) => {
+  const newPageSize = parseInt(event.target.value);
+  curPage = 1;
+  pageSize = newPageSize;
+  console.log(newPageSize);
+});
+
+  document.addEventListener('DOMContentLoaded', init, false);
+
+
 
 async function init() {
   
