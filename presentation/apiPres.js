@@ -31,14 +31,12 @@ const apiServ = {
             origin: '*'
         }));
 
-            /** Route for All the DATA BASE*/
-            app.get('/api/customers', (req, res) => {
-                fs.readFile('./data/customers.json', (err, data) => {
-                if (err) throw err;
-                const customers = JSON.parse(data);
-                res.json(customers);
-              });
-            });
+      /** Route for All the DATA BASE*/
+      app.get('/api/customers', (req, res) => {
+        fs.readFile('./data/customers.json', (err, data) => {
+                    res.json(customers);
+        });
+      });
 
         /**New routes for each ID wehre we can find  data of each customer by her ID*/
         app.get('/api/customers/id/:id', (req, res) => {
@@ -76,10 +74,13 @@ const apiServ = {
 
         /**NEW route where we can push the data of new customer*/
         /**the POST option is for Adding data in the server */
-        app.post('/api/customers/add', function(req, res) {
-            business.AddUser(req.body);
-            res.json(req.body);
-            });
+//         app.post('/api/customers/add', function(req, res) {
+//           business.AddUser(req.body);
+//           fs.readFile('./data/customers.json', (err, data) => {
+//             business.AddUser(req.body);
+//             res.json(customers);
+// });
+//             });
 
         
         /**New route to get the list of customers */
@@ -109,15 +110,36 @@ const apiServ = {
           
        /**New route where we can Delete a customer from the data Base*/
         /**the DELETE option is for Deleting data in the server */
-        app.delete('/api/customers', (req, res) => {
+        app.delete('/api/customersDelete', (req, res) => {
           business.deleteUser(req.query.id);
-          res.json(customers);
+          fs.readFile('./data/customers.json', (err, data) => {
+            res.json(customers);
+          });
         })
-  
+      
     
+         /** Route for All the DATA BASE*/
+         app.get('/api/customersDelete', (req, res) => {
+          fs.readFile('./data/customers.json', (err, data) => {
+          res.json(customers);
+        });
+      });
+ 
+            app.post('/api/customersAdd', (req, res) => {
+              business.AddUser(req.body);
+              fs.readFile('./data/customers.json', (err, data) => {
+                res.json(customers);
+              });            
+          });
+              /** Route for All the DATA BASE*/
+               app.get('/api/customersAdd', (req, res) => {
+                fs.readFile('./data/customers.json', (err, data) => {
+                res.json(customers);
+              });
+            });
 
 
-
+            
         /**Server running on port */
         app.listen(port, function(){
             console.log("Server running on port " + port);
