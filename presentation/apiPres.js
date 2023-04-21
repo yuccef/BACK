@@ -77,31 +77,21 @@ const apiServ = {
             res.sendFile(path.join(__dirname, '/../public/delete.html'));
         });
 
-        app.delete('/api/customersDelete', (req, res) => {
+        app.delete('/api/customers', (req, res) => {
             business.deleteUser(req.query.id);
             fs.readFile('./data/customers.json', (err, data) => {
                 res.json(customers);
             });
         });
 
-        app.get('/api/customersDelete', (req, res) => {
-            fs.readFile('./data/customers.json', (err, data) => {
-                res.json(customers);
-            });
-        });
         
-        app.post('/api/customersAdd', (req, res) => {
+        app.post('/api/customers', (req, res) => {
             business.AddUser(req.body);
             fs.readFile('./data/customers.json', (err, data) => {
                 res.json(customers);
             });            
         });
-              /** Route for All the DATA BASE*/
-               app.get('/api/customersAdd', (req, res) => {
-                fs.readFile('./data/customers.json', (err, data) => {
-                res.json(customers);
-              });
-            });
+
 
 
             
