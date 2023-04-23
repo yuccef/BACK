@@ -2,60 +2,68 @@
 <html lang="en">
 
 <head>
+
+  <title>Supprimer un Client</title>  
   <meta charset="UTF-8">
-  <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet"><!--Sweet Alert-->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script><!--Sweet Alert-->
+ 
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"><!--Style-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script><!--for Server-->
+
+
+<!--SCRIPT 1-->
 <script>
+   
+   /**URL of our Data*/
     var url = new URL("http://localhost:3001/api/customers");
 
-function getTotalClients() {
-    //on recupere le nombre de clients
-    let nb;
-    $.ajax({
-        url: url,
-        async: false,
-        success: function (data) {
-            nb = data.total;
-        }
-    });
-    return nb;
-}
+    function handleSubmit(event) {
+      event.preventDefault();
 
-function handleSubmit(event) {
+      /**RECOVER DATA */
 
-    //Preventing page refresh
-    event.preventDefault();
-    let id = parseInt(document.getElementById("id").value);
-    //on recupere l'url et on la transforme en objet url
-    var search_params = url.searchParams;
-    search_params.set("id", id);
-    // replace current query string with new params
-    url.search = search_params.toString();
-  
-    //on envoie le client au serveur
-    $.ajax({
-        url: url,
-        method: "DELETE",
-        success: function (response) {
-            Swal.fire({
-  position: 'top-end',
-  icon: 'success',
-  background: 'white',
-    title: 'Client Supprimé',
-  showConfirmButton: false,
-  timer: 1500
-})
-setTimeout(() => {
-  window.location.href = "http://localhost:3001/api/customers/liste"
-}, "2000");        }
-    });
-}
+        /**Recover the Id of the User to Delete*/
+        let id = parseInt(document.getElementById("id").value);
+
+        /**we get the url and transform it into a url object*/
+        var search_params = url.searchParams;
+        search_params.set("id", id);
+
+        /**replace current query string with new parameters*/
+        url.search = search_params.toString();
+      
+        /**Ajax method*/
+        $.ajax({
+            url: url,
+            method: "DELETE", /**DELETE Option*/
+          
+            success: function (response) {
+             
+              /**Sweet Alert*/
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    background: 'white',
+                      title: 'Client Supprimé',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+
+              /**Return*/
+              setTimeout(() => {
+              window.location.href = "http://localhost:3001/api/customers/liste"
+              }, "2000");  
+            }
+        });
+      }
 </script>
-<title>Supprimer un Client</title>  
 
-<style>
+
+
+
+<!--CSS -->
+  <style>
     body {
       background-color: #f7f7f7;
       font-family: 'Montserrat', sans-serif;
@@ -141,9 +149,12 @@ setTimeout(() => {
     }
   
   </style>
-  
+
+</head> 
+ 
+
+  <!--BODY-->
   <body>
-  
     <h1>Supprimer un client</h1>  
   
     <div class="d-flex justify-content-center">
@@ -155,16 +166,19 @@ setTimeout(() => {
         <br>
         <div class="row">
           <div class="col-sm-12">
+
+            <!--SUBMIT-->
             <button type="submit" class="btn btn-primary btn-submit">Valider</button>
           </div>
         </div>
       </form>
     </div>
   
- 
+
+    <!--SCRIPT 2-->
     <script>
-      const form = document.querySelector('form');
-      form.addEventListener('submit', handleSubmit);
+      /**Call the function*/
+      addEventListener('submit', handleSubmit);
     </script>
    
     

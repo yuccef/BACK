@@ -1,9 +1,9 @@
-const dataL = require("../data/datalayer");  /** Pick up methods of dataLayer */
+const dataL = require("../data/datalayer");  /** Pick up methods from dataLayer */
 
 
 const business = {
 
-    /** method del function to delete a user form the  DataBase */
+    /**To Delete a user form the  DataBase */
     deleteUser : function(user){
         let test = dataL.Del(user);
     },
@@ -19,12 +19,6 @@ const business = {
         console.log(data);
         return dataL.addUser(data);
     },
-
-    /**To get customers */
-    getAllCustomers : function () {
-        return dataL.getAllUsers();
-    },
-    
 
 };
 

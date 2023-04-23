@@ -12,9 +12,6 @@ main();
 
 
 
-//For the Data server use http://localhost:3001/api/customers
-//For the Liste in internet server use http://localhost:3001/api/customers/liste
-//Add a user use (FRONT) http://localhost:3001/api/customers/liste/add
-//Add a user use (BACK) http://localhost:3001/api/customers/add
+
 
 

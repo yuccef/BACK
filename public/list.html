@@ -1,119 +1,119 @@
 <!DOCTYPE html>
 <html>
   <head>
+
     <title>Liste des Clients</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+
+  <!--CSS-->
     <style>
-      /* Appliquer un style de base à la page */
-      html, body {
-        margin: 0;
-        padding: 0;
-        font-family: Arial, sans-serif;
-        font-size: 16px;
-        background-color: #f6f7fb;
-      }
-  
-  
-  
-    /* Centrer le tableau et définir les couleurs des lignes */
-    #catTable {
-      margin: 50px auto;
-      border-collapse: collapse;
-      background-color: #fff;
-      box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
-      border-radius: 5px;
-      overflow: hidden;
-      animation: slide-up 0.5s ease-out;
-    }
-    
-    #catTable th {
-      background-color: #7987cf;
-      color: #fff;
-      text-align: left;
-      padding: 20px;
-    }
-    
-    #catTable td {
-      border: 1px solid #ddd;
-      padding: 10px;
-      font-size: 14px;
-    }
-    
-    #catTable tbody tr:nth-child(even) {
-      background-color: #f2f2f2;
-    }
-    
-    /* Définir les styles des boutons */
-    button {
-      background-color: #5f7eda;
-      color: #fff;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 5px;
-      cursor: pointer;
-      margin: 10px;
-      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-      transition: background-color 0.3s ease-out;
-
       
-    }
-
-.modify {
-  background-color: orange;
-  color: white;
-  float: right;
-}
-
-.delete {
-  background-color: red;
-  color: white;
-  float: right;
-}
-.add {
-  background-color: green;
-  color: white;
-  float: right;
-}
-
-
+        html, body {
+          margin: 0;
+          padding: 0;
+          font-family: Arial, sans-serif;
+          font-size: 16px;
+          background-color: #f6f7fb;
+        }
     
-    button:hover {
-      background-color:#6c4f9a;
-    }
-    
-    /* Appliquer le style Bootstrap au select */
-    #pageSizeSelect {
-      background-color:  #5f7eda;
-      color: #fff;
-      border: none;
-      padding: 5px 10px;
-      border-radius: 5px;
-      cursor: pointer;
-      margin: 10px;
-      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-      transition: background-color 0.3s ease-out;
-    }
-    
-    #pageSizeSelect:hover {
-      background-color: #6c4f9a;
-    }
-    
-    /* Animation pour afficher le tableau */
-    @keyframes slide-up {
-      from {
-        transform: translateY(100%);
+      #Table {
+        margin: 50px auto;
+        border-collapse: collapse;
+        background-color: #fff;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+        overflow: hidden;
+        animation: slide-up 0.5s ease-out;
       }
-      to {
-        transform: translateY(0%);
+      
+      #Table th {
+        background-color: #7987cf;
+        color: #fff;
+        text-align: left;
+        padding: 20px;
       }
-    }
-  </style>
+      
+      #Table td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        font-size: 14px;
+      }
+      
+      #Table tbody tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+
+      button {
+        background-color: #5f7eda;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        transition: background-color 0.3s ease-out;
+      }
+
+      .modify {
+        background-color: orange;
+        color: white;
+        float: right;
+      }
+
+      .delete {
+        background-color: red;
+        color: white;
+        float: right;
+      }
+      .add {
+        background-color: green;
+        color: white;
+        float: right;
+      }
+      
+      button:hover {
+        background-color:#6c4f9a;
+      }
+      
+      /* Appliquer le style Bootstrap au select */
+      #pageSizeSelect {
+        background-color:  #5f7eda;
+        color: #fff;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        transition: background-color 0.3s ease-out;
+      }
+      
+      #pageSizeSelect:hover {
+        background-color: #6c4f9a;
+      }
+      
+      /**Animation fir the table*/
+      @keyframes slide-up {
+        from {
+          transform: translateY(100%);
+        }
+        to {
+          transform: translateY(0%);
+        }
+      }
+    </style>
   
-  </head>
+</head>
+
+
+<!--BODY-->
 <body>
 
 
+  <!--Select the number of customers to show-->
   <select id="pageSizeSelect">
     <option value="15">15</option>
     <option value="20">20</option>
@@ -121,18 +121,21 @@
     <option value="50">50</option>
   </select>
 
-
+  <!--Pagination-->
   <button id="firstButton">Première</button> 
   <button id="prevButton">Précédent</button> 
   <button id="nextButton">Suivant</button>
   <button id="lastButton">Dernière</button> 
   
+
+  <!--Operations-->
   <a id="AddButton" href=" http://localhost:3001/api/customers/liste/add"><button class="add">Ajouter</button></a>	
   <a id="modify" href=" http://localhost:3001/api/customers/liste/modify"><button class="modify">Modifier</button></a>
   <a id="deleteButton" href=" http://localhost:3001/api/customers/liste/delete"><button class="delete">Supprimer</button></a>	
   
   
-  <table id="catTable">
+  <!--The table-->
+  <table id="Table">
     <thead>
       <tr>
         <th data-sort="id">ID</th>
@@ -145,41 +148,50 @@
       </tr>
     </thead>
     <tbody>
+
+      <!--Loading-->
       <tr><td colspan="4"><i>Loading...</i></td></tr>
     </tbody>
   </table>
   
+
+  <!--MY SCRIPT-->
   <script>
   
   let data, table, sortCol;
   let sortAsc = false;
-  let pageSize = 30;
-  let curPage = 1;
+  let pageSize = 30; /**default number of customers*/
+  let curPage = 1; /**Current page*/
   
+
+      /**choose the numbre of customers*/
   const selectElement = document.querySelector('#pageSizeSelect');
   selectElement.addEventListener('change', (event) => {
-    const newPageSize = parseInt(event.target.value);
-    curPage = Math.floor(((curPage-1) * pageSize) / newPageSize) + 1;
-    pageSize = newPageSize;
-    renderTable();
-  });
-  
+        const newPageSize = parseInt(event.target.value);
+        curPage = Math.floor(((curPage-1) * pageSize) / newPageSize) + 1;
+        pageSize = newPageSize;
+        renderTable();
+      });
   document.addEventListener('DOMContentLoaded', init, false);
-  
+   
+      
+
   async function init() {
     
-    // Select the table (well, tbody)
-    table = document.querySelector('#catTable tbody');
-    // get the cats
+    /**Select the table (well, tbody)*/
+    table = document.querySelector('#Table tbody');
+  
+    /**Recover Data*/
     let resp = await fetch('http://localhost:3001/api/customers');
     data = await resp.json();
     renderTable();
     
     // listen for sort clicks
-    document.querySelectorAll('#catTable thead tr th').forEach(t => {
+    document.querySelectorAll('#Table thead tr th').forEach(t => {
        t.addEventListener('click', sort, false);
     });
   
+    /**Pagination*/
     document.querySelector('#firstButton').addEventListener('click', firstPage, false);
     document.querySelector('#nextButton').addEventListener('click', nextPage, false);
     document.querySelector('#prevButton').addEventListener('click', previousPage, false);
@@ -187,60 +199,67 @@
   
   }
   
+  /**Transform into a table*/
   function renderTable() {
-    // create html
-    let result = '';
-    const start = (curPage-1) * pageSize;
-    const end = start + pageSize;
-    const dataSubset = data.slice(start, end);
-    dataSubset.forEach(c => {
-       result += `<tr>
-       <td>${c.id}</td>
-       <td>${c.email}</td>
-       <td>${c.first}</td>
-       <td>${c.last}</td>
-       <td>${c.company}</td>
-       <td>${c.created_at}</td>
-       <td>${c.country}</td>
-       </tr>`;
+  
+        let result = '';
+        const start = (curPage-1) * pageSize;
+        const end = start + pageSize;
+        const dataSubset = data.slice(start, end);
+        dataSubset.forEach(c => {
+          result += `<tr>
+          <td>${c.id}</td>
+          <td>${c.email}</td>
+          <td>${c.first}</td>
+          <td>${c.last}</td>
+          <td>${c.company}</td>
+          <td>${c.created_at}</td>
+          <td>${c.country}</td>
+          </tr>`;
+        });
+        table.innerHTML = result;
+      }
+
+
+
+   /**Organize and Show the table*/
+  function sort(e) {
+      let thisSort = e.target.dataset.sort;
+      if(sortCol === thisSort) sortAsc = !sortAsc;
+      sortCol = thisSort;
+      console.log('sort dir is ', sortAsc);
+      data.sort((a, b) => {
+        if(a[sortCol] < b[sortCol]) return sortAsc?1:-1;
+        if(a[sortCol] > b[sortCol]) return sortAsc?-1:1;
+        return 0;
     });
-    table.innerHTML = result;
-  }
-
-function sort(e) {
-  let thisSort = e.target.dataset.sort;
-  if(sortCol === thisSort) sortAsc = !sortAsc;
-  sortCol = thisSort;
-  console.log('sort dir is ', sortAsc);
-  data.sort((a, b) => {
-    if(a[sortCol] < b[sortCol]) return sortAsc?1:-1;
-    if(a[sortCol] > b[sortCol]) return sortAsc?-1:1;
-    return 0;
-  });
-  renderTable();
-}
-
-function previousPage() {
-  if(curPage > 1) curPage--;
-  renderTable();
+      renderTable();
 }
 
 
-function nextPage() {
-  if((curPage * pageSize) < data.length) curPage++;
-  renderTable();
-}
+ /**PAGINATIONN*/
+          function previousPage() {
+            if(curPage > 1) curPage--;
+            renderTable();
+          }
 
-function firstPage() {
-   curPage=1;
-  renderTable();
-}
 
-function lastPage() {
-  curPage= data.length/pageSize;
-  renderTable();
-}
-      </script>
+          function nextPage() {
+            if((curPage * pageSize) < data.length) curPage++;
+            renderTable();
+          }
+
+          function firstPage() {
+            curPage=1;
+            renderTable();
+          }
+
+          function lastPage() {
+            curPage= data.length/pageSize;
+            renderTable();
+          }
+</script>
+
 </body>
 </html>
 

@@ -4,133 +4,145 @@
 <head>
   <meta charset="UTF-8">
   <title>Modifier un Utilisateur</title>
-  <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
-  <style>
-body {
-  background-color: #f7f7f7;
-  font-family: 'Montserrat', sans-serif;
-  color: #333;
-  text-align: center;
-  padding: 20px;
-}
-
-h1 {
-  font-size: 36px;
-  margin-bottom: 20px;
-  color: #522f7d;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-}
-
-form {
-  margin: 0 auto;
-  max-width: 600px;
-  padding: 20px;
-  border-radius: 10px;
-  background-color: #fff;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.radio-group {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.radio-group label {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 10px;
-  padding: 10px 20px;
-  border-radius: 20px;
-  background-color: #fcfcfc;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 18px;
-  font-weight: bold;
-  color: #333;
-}
-
-.radio-group label:hover {
-  background-color: #eee;
-}
-
-.radio-group input[type="radio"] {
-  display: none;
-}
-
-.radio-group input[type="radio"]:checked + label {
-  background-color: #1abc9c;
-  color: #fff;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-}
-
-.radio-group input[type="radio"]:focus + label {
-  outline: none;
-}
-
-.radio-group input[type="radio"]:active + label {
-  background-color: #16a085;
-}
-
-.input-group {
-  text-align: center;
-}
-
-input[type="text"] {
-  padding: 10px 20px;
-  border-radius: 20px;
-  border: none;
-  background-color: #f7f7f7;
-  margin-top: 20px;
-  width: 100%;
-  transition: all 0.3s ease;
-  font-size: 18px;
-  font-weight: bold;
-  color: #333;
-}
-
-input[type="text"]:focus {
-  outline: none;
-  background-color: #eee;
-}
-
-    .btn-submit {
-      background-color: #6357a7;
-      color: #fff;
-      border-color:  #6357a7;
-      position: relative;
-      transition: all 0.3s ease-out;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-size: 16px;
-      padding: 10px 30px;
-      border-radius: 20px;
-      margin-top: 20px;
-    }
+  <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">  <!--Sweet Alert-->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>  <!--Sweet Alert-->
   
-    .btn-submit:hover {
-      background-color: #2b577e;
-      border-color:  #2b577e;
-    }
+  
+  
+   <!--CSS-->
+  <style>
+          body {
+            background-color: #f7f7f7;
+            font-family: 'Montserrat', sans-serif;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+          }
+
+          h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #522f7d;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+          }
+
+          form {
+            margin: 0 auto;
+            max-width: 600px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+          }
+
+          .radio-group {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            text-align: center;
+          }
+
+          .radio-group label {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px 20px;
+            border-radius: 20px;
+            background-color: #fcfcfc;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+          }
+
+          .radio-group label:hover {
+            background-color: #eee;
+          }
+
+          .radio-group input[type="radio"] {
+            display: none;
+          }
+
+          .radio-group input[type="radio"]:checked + label {
+            background-color: #1abc9c;
+            color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+          }
+
+          .radio-group input[type="radio"]:focus + label {
+            outline: none;
+          }
+
+          .radio-group input[type="radio"]:active + label {
+            background-color: #16a085;
+          }
+
+          .input {
+            text-align: center;
+          }
+
+          input[type="text"] {
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: none;
+            background-color: #f7f7f7;
+            margin-top: 20px;
+            width: 100%;
+            transition: all 0.3s ease;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+          }
+
+          input[type="text"]:focus {
+            outline: none;
+            background-color: #eee;
+          }
+
+              .btn-submit {
+                background-color: #6357a7;
+                color: #fff;
+                border-color:  #6357a7;
+                position: relative;
+                transition: all 0.3s ease-out;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                font-size: 16px;
+                padding: 10px 30px;
+                border-radius: 20px;
+                margin-top: 20px;
+              }
+            
+              .btn-submit:hover {
+                background-color: #2b577e;
+                border-color:  #2b577e;
+              }
   </style>
+
+
 </head>
 <body>
   <h1>Modifier un Client</h1>
+
+
   <form>
+
+    <!--Id of the user to update-->
     <div id="id-form">
       <label for="id">ID :</label>
       <input type="number" id="id" name="id" required /><br /><br /><br /><br />
     </div><br /><br />
+
+    <!--what Update-->
     <div id="form-form">
       <label>Que ce que vous voulez modifier !</label><br /><br />
     <label>
@@ -159,47 +171,40 @@ input[type="text"]:focus {
     </label>
     <br><br /><br />
   </div>
-    <div class="input-group">
+  
+  <!--The Update-->
+  <div class="input">
       <label for="input-text">Ecrire la nouvelle valeur:</label>
       <input type="text" id="input-text">
     </div>
+
+    <!--Submit-->
     <label>
     <input type="submit" id="submit-button"  class="btn btn-primary btn-submit" value="Valider" />
   </label>
   </form>
 
-  <script>
-const inputText = document.getElementById('input-text').value;
-console.log(inputText);
+<!--MY SCRIPT-->
+<script>
 
+/**While Submiting*/
 const submitButton = document.getElementById("submit-button");
-const idForm = document.getElementById("id-form");
-
-const checkboxForm = document.getElementById("form-form");
-const idd = document.getElementById("id").value;
-
 submitButton.addEventListener("click", (event) => {
   event.preventDefault();
 
+  /**Recover data*/
   const inputText = document.getElementById('input-text').value;
-console.log(inputText);
-
-const submitButton = document.getElementById("submit-button");
-const idForm = document.getElementById("id-form");
-
-const checkboxForm = document.getElementById("form-form");
-const idd = document.getElementById("id").value;
-
-
-  console.log("serveur crééer sur le idd");
+  const idd = document.getElementById("id").value;
+  const checkboxForm = document.getElementById("form-form");
   const checkedValue = checkboxForm.querySelector("input[type=radio]:checked").value; 
 
-  console.log(checkedValue);
-  console.log(inputText);
-  console.log(idd);
 
+
+  /**Searching the Data of the user*/
   fetch(`http://localhost:3001/api/customers/id/${idd}`)
   
+     /**Done Case*/
+    /**Update*/
     .then(response => response.json())
     .then(user => {
       console.log(user);
@@ -225,7 +230,7 @@ const idd = document.getElementById("id").value;
       }
 
 
-
+      /**Push the Update*/
       fetch(`http://localhost:3001/api/customers/id/${idd}`, {
         method: 'PUT',
         headers: {
@@ -237,43 +242,41 @@ const idd = document.getElementById("id").value;
       .then(data => console.log(data))
       .catch(error => console.error(error));
      
-     
+
+     /**Sweet Alert*/
       Swal.fire({
-  position: 'top-end',
-  icon: 'success',
-  background: 'white',
-    title: 'Mofications sauvegardés',
-  showConfirmButton: false,
-  timer: 1500
-})
-setTimeout(() => {
-  window.location.href = "http://localhost:3001/api/customers/liste"
-}, "2000");
+              position: 'top-end',
+              icon: 'success',
+              background: 'white',
+                title: 'Mofications sauvegardés',
+              showConfirmButton: false,
+              timer: 1500
+            })
+            /**Return*/
+            setTimeout(() => {
+              window.location.href = "http://localhost:3001/api/customers/liste"
+            }, "2000");
 
     })
 
-    
+    /**ERROR Case*/
     .catch((error) => {
             console.error("Erreur lors de l'ajout de l'utilisateur :", error);
             Swal.fire({
-  position: 'top-end',
-  icon: 'error',
-  background: 'white',
-  title: 'Erreur , Veulliez ressayer',
-  showConfirmButton: false,
-  timer: 1500
-})
+                    position: 'top-end',
+                    icon: 'error',
+                    background: 'white',
+                    title: 'Erreur , Veulliez ressayer',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
 
-setTimeout(() => {
-  window.location.href = "http://localhost:3001/api/customers/liste"
-}, "2000");
-          });
- 
+                  setTimeout(() => {
+                    window.location.href = "http://localhost:3001/api/customers/liste"
+                  }, "2000");
+                });
 
-
-});
-
-
+  });
   </script>
 
 </body>
