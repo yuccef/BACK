@@ -1,15 +1,12 @@
 const express = require("express");
 const cors = require('cors');
 const path = require('path');
-const chokidar = require('chokidar');
 const axios = require('axios');
 
 const app = express();
-
 const business = require("../business/business");
-
 const fs = require('fs');
-const data = fs.readFileSync('./data/customers.json');
+const data = fs.readFileSync('./Server/data/customers.json');
 const customers = JSON.parse(data);
 
 const bodyParser = require('body-parser');
@@ -31,7 +28,7 @@ const apiServ = {
 
         /**Create a route to Get the data of all users */
         app.get('/api/customers', (req, res) => {
-            fs.readFile('./data/customers.json', (err, data) => {
+            fs.readFile('./Server/data/customers.json', (err, data) => {
                 if (err) {
                     console.error(err);
                     return res.sendStatus(500);
@@ -53,20 +50,6 @@ const apiServ = {
         });
 
 
-        const customersWatcher = chokidar.watch('./data/customers.json');
-        customersWatcher.on('change', (path) => {
-            console.log(`File ${path} has been changed`); 
-            /**Read the modified JSON file */
-            fs.readFile(path, (err, data) => {
-                if (err) {
-                    console.error(err);
-                    return;
-                }
-                /**Refresh API server database*/
-                const customers = JSON.parse(data);
-                /**Code to refresh API server database here */
-            });
-        });
 
 
 
@@ -115,7 +98,7 @@ const apiServ = {
                 };
 
                /**Write Updates in local JSON file */
-                fs.writeFile('./data/customers.json', JSON.stringify(customers), (err) => {
+                fs.writeFile('./Server/data/customers.json', JSON.stringify(customers), (err) => {
                     if (err) {
                         console.error(err);
                         return res.sendStatus(500);
@@ -134,8 +117,13 @@ const apiServ = {
        /**the DELETE option is for Deleting data in the server */
         app.delete('/api/customers', (req, res) => {
             business.deleteUser(req.query.id);
-            fs.readFile('./data/customers.json', (err, data) => {
-                res.json(customers);
+            fs.readFile('./Server/data/customers.json', (err, data) => {
+                if (err) {
+                    res.status(500).send('Erreur lors de la lecture du fichier customers.json');
+                } else {
+                    const customers = JSON.parse(data);
+                    res.json(customers);
+                }
             });
         });
 
@@ -144,32 +132,35 @@ const apiServ = {
 
        /**Create a route for Adding a user */
        /**the POST option is for Adding data in the server */
-        app.post('/api/customers', (req, res) => {
-            business.AddUser(req.body);
-            fs.readFile('./data/customers.json', (err, data) => {
-                res.json(customers);
-            });            
-        });
-
+       app.post('/api/customers', (req, res) => {
+        business.AddUser(req.body);
+        fs.readFile('./Server/data/customers.json', (err) => {
+            if (err) {
+                res.status(500).send('Erreur lors de la lecture du fichier customers.json');
+            } else {
+            res.json(customers);
+            }
+        });            
+    });
 
 
 
 
         /**Created routes to return html files where each file corresponds to an operation */
         app.get('/api/customers/liste', function(req, res) {
-            res.sendFile(path.join(__dirname, '/../public/list.html'));
+            res.sendFile(path.join(__dirname, '../../Customer/public/list.html'));
         });
 
         app.get('/api/customers/liste/add', function(req, res) {
-            res.sendFile(path.join(__dirname, '/../public/add.html'));
+            res.sendFile(path.join(__dirname, '../../Customer/public/add.html'));
         });
 
         app.get('/api/customers/liste/modify', function(req, res) {
-            res.sendFile(path.join(__dirname, '/../public/modify.html'));
+            res.sendFile(path.join(__dirname, '../../Customer/public/modify.html'));
         });
 
         app.get('/api/customers/liste/delete', function(req, res) {
-            res.sendFile(path.join(__dirname, '/../public/delete.html'));
+            res.sendFile(path.join(__dirname, '../../Customer/public/delete.html'));
         });
 
 

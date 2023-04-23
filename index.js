@@ -1,6 +1,4 @@
-const apiServ= require("./presentation/apiPres");
-const express = require('express');
-const app = express();
+const apiServ= require("./Server/presentation/apiPres");
 const port =3001;
 
 

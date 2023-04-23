@@ -5,7 +5,7 @@ const business = {
 
     /**To Delete a user form the  DataBase */
     deleteUser : function(user){
-        let test = dataL.Del(user);
+       return dataL.Del(user);
     },
 
     /**To Update the Data base */

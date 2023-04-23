@@ -133,12 +133,8 @@
    <script>
      
 
-     /**function to generate automatic Ids*/
-      let lastID = 9999; 
-      function generateID() {
-       lastID++; 
-      return lastID ;
-     }
+      let lastID = 10000; 
+
 
       /**recover data from the form */
       const userForm = document.getElementById("user-form");
@@ -151,6 +147,7 @@
 
         /**Create a new User*/
         const userData = {
+          
           id: generateID(),
           email: userForm.email.value,
           first: userForm.first.value,
@@ -160,6 +157,12 @@
           created_at: new Date().toISOString().slice(0, 10),
         };
 
+
+      /**function to generate automatic Ids*/
+      function generateID() {
+        lastID++; 
+       return lastID ;
+     }
 
        /**The POST option in this Route*/
         fetch("/api/customers", {
@@ -207,9 +210,9 @@
                   timer: 1500
                 })
 
-                setTimeout(() => {
+                 setTimeout(() => {
                   window.location.href = "http://localhost:3001/api/customers/liste"
-                }, "2000");
+                 }, "2000");
 
           }); 
       });

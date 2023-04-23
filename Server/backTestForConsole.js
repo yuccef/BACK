@@ -76,7 +76,7 @@ function ajouter(){
     tab.push(user);
 
     var newdata = JSON.stringify(tab);
-    fs.writeFile("users.json", newdata, err => {
+    fs.writeFile("data/customers.json", newdata, err => {
         // error checking
         if(err) throw err;
         
@@ -215,43 +215,3 @@ function main(){
     afficher();
 }
 main();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/////// pour afficher le fichier dans un serveur ./////
-/*
-const http = require('http');
-
-const hostname = '127.0.0.1';
-const port = 3000;
-
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello, World!\n');
-});
-
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
-*/
-

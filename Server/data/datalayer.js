@@ -1,5 +1,5 @@
 const fs = require("fs");
-const fichier = "./data/customers.json";  /**To get the Data Base */
+const fichier = "./Server/data/customers.json";  /**To get the Data Base */
 
 
 
@@ -62,7 +62,7 @@ let dataLayer = {
             })
             .catch(error => console.error(error));
      
-        
+      return data;  
     },
 
 
@@ -72,7 +72,7 @@ let dataLayer = {
         const tab= JSON.parse(users);
         tab.push(data);
         var newdata = JSON.stringify(tab);
-        fs.writeFile("./data/customers.json", newdata, err => {
+        fs.writeFile("./server/data/customers.json", newdata, err => {
             // error checking
             if(err) throw err;
             
