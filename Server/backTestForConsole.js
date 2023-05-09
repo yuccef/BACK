@@ -1,21 +1,15 @@
-const fs = require("fs"); 
+const fs = require("fs");
 const color = require("chalk");
-let user = fs.readFileSync("data/customers.json"); //importer le fichier "users.json"
-const tab = JSON.parse(user);  //recupérer le tableau du fichier importé
-const prompt = require("prompt-sync")();    //inclusion  de prompt
+const prompt = require("prompt-sync")();
 
+// on lit le fichier json
+const user = fs.readFileSync("data/customers.json");
+const tab = JSON.parse(user);
+const fichier = "./data/customers.json";
 
+//declaration des variables
 let  id, email, first, last, company1, created, country1;
 
-
-
-// la liste des couleurs  
-//     Rouge : \x1b[31m
-//     Vert : \x1b[32m
-//     Jaune : \x1b[33m
-//     Bleu : \x1b[34m
-//     Cyan : \x1b[36m
-//     Blanc : \x1b[37m
 
 
 //demander la couleur voulu dans le console
@@ -27,63 +21,138 @@ console.log("Vous choisissez quelle couleur? \n\
 const v = prompt(" ");  //récupérer la valeur taper par l'utilisateur
 
 
+
+
 /**
- * La fonction recuperer() recupere les infos de l'utilisateur
+ * La fonction reccuperer pour reccuperer les données d'un utilisateur  
  */
-function recuperer(){
+function recuperer() {
+console.log(color.green("Quel est l'ID?\n"));
+id = prompt("");
 
-    console.log(color.green("Quel est l`id ? \n"));
-    id = prompt(" ");
+console.log(color.green("Quel est l'email?\n"));
+email = prompt("");
 
-    console.log(color.green("Quel est le prenom ? \n"));
-    email = prompt(" ");
+console.log(color.green("Quel est le prénom?\n"));
+first = prompt("");
 
-    console.log(color.green("Quel est le prenom ? \n"));
-    first = prompt(" ");
+console.log(color.green("Quel est le nom?\n"));
+last = prompt("");
 
-    console.log(color.green("Quel est le nom? \n"));
-    last = prompt(" ");
+console.log(color.green("Quel est le nom de la société?\n"));
+company1 = prompt("");
 
-    console.log(color.green("Quel est le nom de la société ? \n"));
-    company1 = prompt(" ");
+console.log(color.green("Quand a-t-elle été créée?\n"));
+created = prompt("");
 
-    console.log(color.green("Quand a elle été créee ? \n"));
-    created = prompt(" ");
-    
-    console.log(color.green("Quel est en est le pays ? \n"));
-    country1 = prompt(" ");
-    
+console.log(color.green("Quel est le pays?\n"));
+country1 = prompt("");
 }
 recuperer();
 
 
 
 /**
- * La fonction ajouter() ajoute les nouveaux infos sur la table
+ * La fonction ajouter pour ajouter un utilisateur  
  */
-function ajouter(){
-    user = {
-        id: id,
-        email: email,
-        first: first,
-        last: last,
-        company: company1,
-        created_at: created,
-        country: country1
-    };
+function ajouter() {
+const user = {
+id: id,
+email: email,
+first: first,
+last: last,
+company: company1,
+created_at: created,
+country: country1
+};
 
+tab.push(user);
 
-    tab.push(user);
-
-    var newdata = JSON.stringify(tab);
-    fs.writeFile("data/customers.json", newdata, err => {
-        // error checking
-        if(err) throw err;
-        
-        console.log("Utilisateur ajouté");
-    });
+const newdata = JSON.stringify(tab);
+fs.writeFile("data/customers.json", newdata, err => {
+if (err) throw err;
+console.log("Utilisateur ajouté");
+});
 }
 ajouter();
+
+
+
+
+
+
+/**
+ * La fonction Update pour Modifier un utilisateur  
+ */
+function update() {
+const customers = JSON.parse(fs.readFileSync("./data/customers.json", "utf8"));
+
+console.log("Quel est l'ID de l'utilisateur à modifier?\n");
+const idd = prompt("");
+const utilisateur = customers.find(user => user.id === idd);
+
+console.log("Qu'est-ce que vous voulez modifier?\n");
+const varr = prompt("");
+
+console.log("Entrez la nouvelle valeur:\n");
+const res = prompt("");
+
+if (varr === "first") {
+utilisateur.first = res;
+}
+
+if (varr === "last") {
+utilisateur.last = res;
+}
+
+if (varr === "country") {
+utilisateur.country = res;
+}
+
+if (varr === "company") {
+utilisateur.company = res;
+}
+
+if (varr === "email") {
+utilisateur.email = res;
+}
+
+console.log("Les données ont été mises à jour dans le fichier customers.json.");
+fs.writeFileSync(fichier, JSON.stringify(customers, null, 2));
+}
+update();
+
+
+
+
+
+/**
+ * La fonction Delete pour supprimer un utilisateur  
+ */
+function  Delete (){
+
+    
+    const users = fs.readFileSync(fichier);
+    let newCustomer = JSON.parse(users);
+     
+    console.log("Quel est en est le Id de l'ulitisateur à supprimer ? \n");
+    let idd = prompt(" ");
+    //findIndex permet de retrouver un user en fonction du param removeuser
+    const index = newCustomer.findIndex(user => user.id === idd);
+    
+    if (index != -1) {
+        //puis de le retirer s'il existe 
+        newCustomer.splice(index, 1);
+        //et de reecrire le fichier
+        fs.writeFileSync(fichier, JSON.stringify(newCustomer, null, 2));
+        console.log("Utilisateur supprimé .");
+        return 1;
+    } else 
+    console.log("Utilisateur non trouvé .");
+      return 0;        
+}
+Delete();
+
 
 
 
@@ -161,6 +230,12 @@ function Liste_Société_Utilisateurs()
 
 }
    
+
+
+
+
+
+
 /**
  * La fonction afficher() s'occupe d'affichage
  */
@@ -205,6 +280,11 @@ function afficher(){
 
 }
 afficher();
+
+
+
+
+
 
 
 /**
